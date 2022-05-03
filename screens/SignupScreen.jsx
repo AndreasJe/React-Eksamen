@@ -1,4 +1,4 @@
-import { View,StyleSheet, Image, Text, TextInput, Button } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Button } from 'react-native';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { restoreUser, signup } from './../store/actions/UserActions'
@@ -27,31 +27,35 @@ const SignupScreen = ({ navigation }) => {
         }
     }
 
-    // useEffect(() => {
-    //     load(); // uncomment to read from secure store
-    // }, [])
+    useEffect(() => {
+        load(); // uncomment to read from secure store
+    }, [])
 
 
     return (
-        <View>
+    <View>
         <Image
         style={styles.logo}
-        source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}
+        source={require('../assets/icon.png')}
         />
-            <Text style={styles.header}>Sign up to get access</Text>
-            <TextInput style={styles.input} placeholder='Email' label='Email'
+        <Text style={styles.header}>Sign up to get access</Text>
+        <TextInput style={styles.input} placeholder='Email'
                 onChangeText={setEmail}
                 value={email} />
 
-            <TextInput style={styles.input} placeholder='Password'
+        <TextInput style={styles.input} placeholder='Password'
                 onChangeText={setPassword}
                 value={password} />
 
-            <Button title="Signup" onPress={() => dispatch(signup(email, password))} />
-            <Button title="Login Instead" onPress={() => navigation.navigate("Login")} />
-        </View>
+    <TouchableOpacity style={styles.buttonContainer} onPress={() => dispatch(signup(email, password))}>
+        <Text style={styles.buttonText}> Get Access</Text>
+    </TouchableOpacity>
+            
+    <TouchableOpacity style={styles.copy} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.copyText}>Already have a user? </Text>
+        <Text style={styles.copyLink}> Log in </Text>
+    </TouchableOpacity>
+    </View>
     );
 }
 
@@ -60,11 +64,38 @@ const styles = StyleSheet.create({
       paddingTop: 50,
     },
     logo: {
-      width: 80,
-      height: 100,
+      width: 100,
+      height: 180,
       alignSelf: 'center',
-      marginTop:20,
+      marginTop:30,
       marginBottom:10,
+    },
+    buttonText: {
+    color: 'white',
+    fontSize:16,
+    fontWeight:"700",
+    },
+    buttonContainer: {
+    backgroundColor: '#5050a5',
+    justifyContent: "center",
+    padding: 16,
+    margin:30,
+    borderRadius:10,
+    height:60,
+    },
+    copy: {
+    flexDirection: 'row',
+    alignSelf:'center',
+    },
+    copyText: {
+    color: '#5050a5',
+    fontSize:16,
+    },
+    copyLink: {
+    color: '#5050a5',
+    fontSize:16,
+    fontWeight:"700",
+    marginLeft: -4,
     },
     header: {
     fontSize:26,
