@@ -1,4 +1,6 @@
+import { Alert } from "react-native";
 import { Chatroom } from "../../entities/Chatroom";
+
 
 export const TOGGLE_HAPPY = 'TOGGLE_HAPPY';
 export const ADD = 'ADD';
@@ -37,7 +39,13 @@ export const fetchChatrooms = () => {
         const data = await response.json(); // json to javascript
         console.log(data);
         if (!response.ok) {
-            //There was a problem..
+            Alert.alert(
+              "Something went wrong!",
+              "App couldn't fetch chatrooms. Contact the administrator or try again later",
+              [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ]
+            );
         } else {
 
             let chatrooms = [];
@@ -75,7 +83,13 @@ export const addChatroom = (chatroomName: string) => {
         const data = await response.json(); // json to javascript
         console.log(data);
         if (!response.ok) {
-            //There was a problem..
+            Alert.alert(
+              "Something went wrong!",
+              "Make sure to input a name for your chatroom",
+              [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ]
+            );
         } else {
             dispatch({ type: ADD_CHATROOM, payload: { chatroomName, id: data.name } })
         }
@@ -100,7 +114,13 @@ export const deleteChatroom = (id: string) => {
         const data = await response.json(); // json to javascript
         console.log(data);
         if (!response.ok) {
-            //There was a problem..
+            Alert.alert(
+              "Something went wrong!",
+              "There was a problem deleting the classroom",
+              [
+                { text: "OK", onPress: () => console.log("OK Pressed") },
+              ]
+            );
         } else {
             dispatch({ type: DELETE_CHATROOM, payload: id })
         }

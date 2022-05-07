@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import { Alert } from "react-native";
 
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
@@ -40,7 +41,18 @@ export const signup = (email, password) => {
     const data = await response.json(); // json to javascript
     console.log(data);
     if (!response.ok) {
-      //There was a problem..
+      Alert.alert(
+        "Something went wrong!",
+        "Make sure your email is valid, and your password is longer that 8 characters",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]
+      );
     } else {
       await SecureStore.setItemAsync("email", data.email);
       await SecureStore.setItemAsync("token", data.idToken);
@@ -77,7 +89,18 @@ export const login = (email, password) => {
     const data = await response.json(); // json to javascript
     console.log(data);
     if (!response.ok) {
-      //There was a problem..
+      Alert.alert(
+        "Something went wrong!",
+        "Make sure your email and password is correct",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]
+      );
     } else {
       await SecureStore.setItemAsync("email", data.email);
       await SecureStore.setItemAsync("token", data.idToken);

@@ -27,9 +27,9 @@ const SignupScreen = ({ navigation }) => {
         }
     }
 
-    useEffect(() => {
-        load(); // uncomment to read from secure store
-    }, [])
+    // useEffect(() => {
+    //     load(); // uncomment to read from secure store
+    // }, [])
 
 
     return (
