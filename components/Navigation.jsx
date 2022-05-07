@@ -27,16 +27,7 @@ const NavigationComponent = ({ navigation }) => {
         <NavigationContainer >
             {token !== undefined ? (
                 // Show the app with all navigation
-                <Tab.Navigator            
-                tabBarOptions= {{
-                    labelStyle: {
-                    fontSize: 15,
-                    fontWeight: '700',
-                    textTransform: 'uppercase',
-                    margin: 0,
-                    padding: 0,
-                }
-                }}
+                <Tab.Navigator           
              
                 screenOptions={{
                     headerStyle: {
@@ -50,6 +41,13 @@ const NavigationComponent = ({ navigation }) => {
                       margin: 10,
                       textTransform: 'uppercase',
                     },
+                    tabBarLabelStyle:  {
+                    fontSize: 15,
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    margin: 0,
+                    padding: 0,
+                }
                 }}
                 >
                     <Tab.Screen 
