@@ -6,13 +6,15 @@ import {
   Text,
   Button,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Input from "./../components/Input";
+import { delete_user } from "./../store/actions/UserActions";
 import { useState } from "react";
 
 const EditProfileScreen = ({ navigation }) => {
   const username = useSelector((state) => state.user.username);
   const [validUsername, setValidUsername] = useState(username !== "");
+  const dispatch = useDispatch();
 
   const save = () => {
     // ** if the 'form' is valid ** {
@@ -27,6 +29,7 @@ const EditProfileScreen = ({ navigation }) => {
       <Image style={styles.logo} source={require("../assets/icon.png")} />
       <Text>I am EditProfileScreen</Text>
       <Input
+        style={styles.shadow}
         label="Username"
         inputValue={username}
         error="Username cannot be empty."

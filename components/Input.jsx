@@ -20,7 +20,7 @@ const Input = props => {
     }
 
     return (
-        <View style={styles.shadow}>
+        <View>
             <Text>{props.label}</Text>
             <TextInput value={text} onChangeText={handleChangeText} onBlur={handleOnBlur} />
             {!props.valid && entered ? <Text>{props.error}</Text> : <></>}

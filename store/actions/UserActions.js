@@ -4,7 +4,9 @@ import { Alert } from "react-native";
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const DELETE_USER = "DELETE_USER";
 export const RESTORE_USER = "RESTORE_USER";
+export const EDIT_PROFILE = "EDIT_PROFILE";
 
 export const logout = () => {
   SecureStore.deleteItemAsync("email");
@@ -14,6 +16,38 @@ export const logout = () => {
 
 export const restoreUser = (email, token) => {
   return { type: RESTORE_USER, payload: { email, idToken: token } };
+};
+
+export const delete_user = (token) => {
+  return async (dispatch) => {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idToken: token,
+          returnSecureToken: false,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+      Alert.alert("Something went wrong!", "Contact an administrator", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } else {
+      await SecureStore.setItemAsync("token", data.idToken);
+      dispatch({
+        type: DELETE,
+        payload: { idToken: data.idToken },
+      });
+    }
+  };
 };
 
 export const signup = (email, password) => {
@@ -26,9 +60,6 @@ export const signup = (email, password) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          //javascript to json
-          //key value pairs of data you want to send to server
-          // ...
           email: email,
           password: password,
           returnSecureToken: true,
@@ -36,9 +67,7 @@ export const signup = (email, password) => {
       }
     );
 
-    // console.log(await response.json());
-
-    const data = await response.json(); // json to javascript
+    const data = await response.json();
     console.log(data);
     if (!response.ok) {
       Alert.alert(
@@ -74,9 +103,6 @@ export const login = (email, password) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          //javascript to json
-          //key value pairs of data you want to send to server
-          // ...
           email: email,
           password: password,
           returnSecureToken: true,
@@ -84,9 +110,7 @@ export const login = (email, password) => {
       }
     );
 
-    // console.log(await response.json());
-
-    const data = await response.json(); // json to javascript
+    const data = await response.json();
     console.log(data);
     if (!response.ok) {
       Alert.alert(

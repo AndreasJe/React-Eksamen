@@ -23,13 +23,13 @@ const SignupScreen = ({ navigation }) => {
             dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
 
         } else {
-            console.log("failure");
+            console.log("Couldn't load from the SecureStore");
         }
     }
 
-    // useEffect(() => {
-    //     load(); // uncomment to read from secure store
-    // }, [])
+     useEffect(() => {
+         load(); // uncomment to read from secure store
+     }, [])
 
 
     return (

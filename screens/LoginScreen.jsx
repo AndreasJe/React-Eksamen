@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
             dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
 
         } else {
-            console.log("failure");
+            console.log("Couldn't load from the SecureStore");
         }
     }
 

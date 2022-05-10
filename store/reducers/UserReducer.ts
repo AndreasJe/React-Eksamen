@@ -1,4 +1,4 @@
-import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP } from "../actions/UserActions";
+import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP, DELETE_USER, EDIT_PROFILE } from "../actions/UserActions";
 
 
 export interface UserState {
@@ -28,6 +28,10 @@ const userReducer = (state: UserState = initialState, action: Action) => {
             return { ...state, idToken: undefined, email: undefined }
         case LOGIN:
             return { ...state, idToken: action.payload.idToken, email: action.payload.email }
+        case DELETE_USER:
+            return { ...state, idToken: action.payload.idToken }
+        case EDIT_PROFILE:
+            return { ...state, idToken: action.payload.idToken, displayName: action.payload.string, photoUrl: action.payload.string }
 
         default:
             return state; //does not do anything yet​   

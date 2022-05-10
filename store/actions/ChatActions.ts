@@ -85,7 +85,7 @@ export const addChatroom = (chatroomName: string) => {
         if (!response.ok) {
             Alert.alert(
               "Something went wrong!",
-              "Make sure to input a name for your chatroom",
+              "Logout and back in. Make sure to input a name for your chatroom",
               [
                 { text: "OK", onPress: () => console.log("OK Pressed") },
               ]
