@@ -1,41 +1,41 @@
 import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
-import { useDispatch, getState } from 'react-redux';
-import { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { useState } from "react";
 import { logout, delete_user } from '../store/actions/UserActions';
 import * as SecureStore from "expo-secure-store";
 import React from 'react';
 
+
 const ProfileScreen = ({ navigation }) => {
     const dispatch = useDispatch()
-    
 
-
-    // Første forsøg:
     async function deleteAction() {
-        let tokenFromSecureStore = await SecureStore.getItemAsync('token');
-        if (tokenFromSecureStore) {
-            console.log("success", tokenFromSecureStore);
+      let tokenFromSecureStore = await SecureStore.getItemAsync('token');
+      if (tokenFromSecureStore) {
+          console.log("success", tokenFromSecureStore);
+
+          dispatch(delete_user(tokenFromSecureStore));
+
+      } else {
+          console.log("Couldn't load from the SecureStore");
+      }
+  }
+
+
+
+    // async function deleteAction() {
+    //     let tokenFromSecureStore = await SecureStore.getItemAsync('token');
+    //     if (tokenFromSecureStore) {
+    //         console.log("success", tokenFromSecureStore);
             
 
-            dispatch(delete_user(JSON.stringify(tokenFromSecureStore)));
+    //         dispatch(delete_user(JSON.stringify(tokenFromSecureStore)));
 
-        } else {
-          console.log("Sorry, i could not delete your user");
-        }
-    }
+    //     } else {
+    //       console.log("Sorry, i could not delete your user");
+    //     }
+    // }
 
-    
-// Andet forsøg:
-// async function deleteAction(token) {
-  
-//   let result: string = getState().user.idToken
-//   if (result) {
-//     alert("🔐 Here's your value 🔐 \n" + result);
-//     dispatch(delete_user(result))
-//   } else {
-//     alert('No token found. Logout and login again');
-//   }
-// }
     
 
     return (
