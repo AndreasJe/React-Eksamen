@@ -1,26 +1,24 @@
-import { View, Text, Button } from 'react-native';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
-import { CHATROOMS } from '../dummy.data';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import Event from '../components/Event';
+import userReducer from '../store/reducers/UserReducer';
+import styles from '../constants/styles'
 
 
 const HomeScreen = ({ navigation }) => {
 
     return (
        
-        <View>
-            <Text>Welcome to the homescreen</Text>
-            <Text>data.title</Text>
-            <Text>data.timeStart - data.TimeEnd on the data.date</Text>
-            <Text>data.description</Text>
-        </View>
+        <ScrollView>
+<Text
+style={styles.header}>Welcome to my exam app</Text>
+
+<Text> Hi 
+      </Text>
+
+
+        </ScrollView>
         
       );
 }
- 
+
 export default HomeScreen;

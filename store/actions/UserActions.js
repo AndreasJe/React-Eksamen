@@ -8,16 +8,22 @@ export const DELETE_USER = "DELETE_USER";
 export const RESTORE_USER = "RESTORE_USER";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 
+// Logout User script
 export const logout = () => {
   SecureStore.deleteItemAsync("email");
   SecureStore.deleteItemAsync("token");
   return { type: LOGOUT };
 };
 
-export const restoreUser = (email, token) => {
-  return { type: RESTORE_USER, payload: { email, idToken: token } };
+// Restore User script
+export const restoreUser = (email, token, displayName) => {
+  return {
+    type: RESTORE_USER,
+    payload: { email, idToken: token, displayName },
+  };
 };
 
+// Delete User script
 export const delete_user = (token) => {
   return async (dispatch) => {
     const response = await fetch(
@@ -50,7 +56,8 @@ export const delete_user = (token) => {
   };
 };
 
-export const signup = (email, password) => {
+// Signup User script
+export const signup = (email, password, displayName) => {
   return async (dispatch) => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
@@ -62,6 +69,7 @@ export const signup = (email, password) => {
         body: JSON.stringify({
           email: email,
           password: password,
+          displayName: displayName,
           returnSecureToken: true,
         }),
       }
@@ -73,14 +81,7 @@ export const signup = (email, password) => {
       Alert.alert(
         "Something went wrong!",
         "Make sure your email is valid, and your password is longer that 8 characters",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
       );
     } else {
       await SecureStore.setItemAsync("email", data.email);
@@ -93,6 +94,7 @@ export const signup = (email, password) => {
   };
 };
 
+// Login User script
 export const login = (email, password) => {
   return async (dispatch) => {
     const response = await fetch(
@@ -116,14 +118,7 @@ export const login = (email, password) => {
       Alert.alert(
         "Something went wrong!",
         "Make sure your email and password is correct",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") },
-        ]
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
       );
     } else {
       await SecureStore.setItemAsync("email", data.email);
@@ -131,6 +126,41 @@ export const login = (email, password) => {
       dispatch({
         type: LOGIN,
         payload: { email: data.email, idToken: data.idToken },
+      });
+    }
+  };
+};
+
+// Update User script
+export const edit_profile = (displayName, photoUrl) => {
+  return async (dispatch) => {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          displayName: displayName,
+          photoUrl: photoUrl,
+          returnSecureToken: true,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+      Alert.alert(
+        "Something went wrong!",
+        "Make sure your email and password is correct",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
+    } else {
+      dispatch({
+        type: EDIT_PROFILE,
+        payload: { displayName: data.displayName, photoUrl: data.photoUrl },
       });
     }
   };

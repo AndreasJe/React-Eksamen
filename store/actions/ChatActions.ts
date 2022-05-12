@@ -1,5 +1,6 @@
 import { Alert } from "react-native";
 import { Chatroom } from "../../entities/Chatroom";
+import { initializeApp } from "../../node_modules/firebase/app";
 
 
 export const TOGGLE_HAPPY = 'TOGGLE_HAPPY';
