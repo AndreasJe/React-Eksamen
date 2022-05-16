@@ -135,8 +135,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
+    alignSelf: "center",
     borderColor: "#00000070",
     borderWidth: 1,
+    width: "90%",
     marginLeft: 40,
     marginRight: 40,
     margin: 0,
@@ -154,6 +156,30 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  onlineStatus: {
+    marginLeft: 5,
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+  },
+  chatroomText: {
+    width: "80%",
+  },
+  chatroomButton: {
+    width: "20%",
+  },
+  chatroomItem: {
+    flexDirection: "row",
+    padding: 5,
+  },
+  chatroomList: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  onlineContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
 });
 
-module.exports = styles;
+export default styles;

@@ -51,7 +51,7 @@ const ProfileScreen = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonContainer}
-        onPress={() => dispatch(deleteAction())}
+        onPress={() => deleteAction()}
       >
         <Text style={styles.buttonText}> Delete user</Text>
       </TouchableOpacity>

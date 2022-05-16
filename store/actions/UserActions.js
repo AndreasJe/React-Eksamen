@@ -26,6 +26,7 @@ export const restoreUser = (email, token, displayName) => {
 // Delete User script
 export const delete_user = (token) => {
   return async (dispatch) => {
+    console.log("tokenid:", token);
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
       {
@@ -35,7 +36,6 @@ export const delete_user = (token) => {
         },
         body: JSON.stringify({
           idToken: token,
-          returnSecureToken: false,
         }),
       }
     );
@@ -144,7 +144,6 @@ export const edit_profile = (displayName, photoUrl) => {
         body: JSON.stringify({
           displayName: displayName,
           photoUrl: photoUrl,
-          returnSecureToken: true,
         }),
       }
     );

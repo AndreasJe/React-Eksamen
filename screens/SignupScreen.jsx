@@ -31,8 +31,7 @@ const SignupScreen = ({ navigation }) => {
 
 
     return (
-    <View 
-    style={styles.card}>
+    <View>
         <Image
         style={styles.logo}
         source={require('../assets/icon.png')}

@@ -1,17 +1,16 @@
 import { Alert } from "react-native";
 import { Chatroom } from "../../entities/Chatroom";
-import { initializeApp } from "../../node_modules/firebase/app";
 
 
-export const TOGGLE_HAPPY = 'TOGGLE_HAPPY';
+export const TOGGLE_ONLINE = 'TOGGLE_ONLINE';
 export const ADD = 'ADD';
 export const SUBTRACT = 'SUBTRACT';
 export const ADD_CHATROOM = 'ADD_CHATROOM';
 export const DELETE_CHATROOM = 'DELETE_CHATROOM';
 export const FETCH_CHATROOMS = 'FETCH_CHATROOMS';
 
-export const toggleHappy = () => {
-    return { type: TOGGLE_HAPPY };
+export const toggleOnline = () => {
+    return { type: TOGGLE_ONLINE };
 };
 
 export const add = () => {
@@ -117,7 +116,7 @@ export const deleteChatroom = (id: string) => {
         if (!response.ok) {
             Alert.alert(
               "Something went wrong!",
-              "There was a problem deleting the classroom",
+              "There was a problem deleting the chatroom",
               [
                 { text: "OK", onPress: () => console.log("OK Pressed") },
               ]

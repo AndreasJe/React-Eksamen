@@ -4,13 +4,13 @@ import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP, DELETE_USER, EDIT_PROFILE } from "
 export interface UserState {
     idToken: string | undefined;
     email: string | undefined;
-    username: string | undefined;
+    displayName: string | undefined;
 }
 
 const initialState: UserState = {
     idToken: undefined,
     email: undefined,
-    username: 'Test'
+    displayName: undefined,
 };
 
 export interface Action {
