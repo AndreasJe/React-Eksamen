@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Screen1 from './../screens/Screen1';
 import Screen2 from './../screens/Screen2';

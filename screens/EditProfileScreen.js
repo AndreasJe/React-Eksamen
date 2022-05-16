@@ -8,14 +8,30 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "./../components/Input";
-import { delete_user } from "./../store/actions/UserActions";
-import { useState } from "react";
+import { delete_user, get_UserInfo } from "./../store/actions/UserActions";
+import * as SecureStore from "expo-secure-store";
+import { useState, useEffect } from "react";
 import styles from "../constants/styles";
 
 const EditProfileScreen = ({ navigation }) => {
   const username = useSelector((state) => state.user.username);
   const [validUsername, setValidUsername] = useState(username !== "");
   const dispatch = useDispatch();
+
+  async function fetchUserInfo() {
+    let tokenFromSecureStore = await SecureStore.getItemAsync("token");
+    if (tokenFromSecureStore) {
+      console.log("User data has been fetched");
+
+      dispatch(get_UserInfo(tokenFromSecureStore));
+    } else {
+      console.log("Couldn't load tokenID from the SecureStore");
+    }
+  }
+
+  useEffect(() => {
+    fetchUserInfo(); // uncomment to read from secure store
+  }, []);
 
   const save = () => {
     // ** if the 'form' is valid ** {

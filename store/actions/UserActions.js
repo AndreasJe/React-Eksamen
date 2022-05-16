@@ -7,6 +7,7 @@ export const LOGOUT = "LOGOUT";
 export const DELETE_USER = "DELETE_USER";
 export const RESTORE_USER = "RESTORE_USER";
 export const EDIT_PROFILE = "EDIT_PROFILE";
+export const GET_USERINFO = "GET_USERINFO";
 
 // Logout User script
 export const logout = () => {
@@ -164,3 +165,108 @@ export const edit_profile = (displayName, photoUrl) => {
     }
   };
 };
+
+// DGetUserInfo script
+export const get_UserInfo = (token) => {
+  return async (dispatch) => {
+    console.log("tokenid:", token);
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idToken: token,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+      Alert.alert("Something went wrong!", "Contact an administrator", [
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
+    } else {
+      await SecureStore.setItemAsync(
+        "displayName",
+        JSON.stringify(data.users.displayName)
+      );
+      await SecureStore.setItemAsync(
+        "photoUrl",
+        JSON.stringify(data.users.photoUrl)
+      );
+      await SecureStore.setItemAsync("email", JSON.stringify(data.users.email));
+      await SecureStore.setItemAsync(
+        "emailVerified",
+        JSON.stringify(data.users.emailVerified)
+      );
+      await SecureStore.setItemAsync(
+        "lastLoginAt",
+        JSON.stringify(data.users.lastLoginAt)
+      );
+      await SecureStore.setItemAsync(
+        "createdAt",
+        JSON.stringify(data.users.createdAt)
+      );
+      dispatch({
+        type: GET_USERINFO,
+        payload: {
+          displayName: stringify(data.users.displayName),
+          photoUrl: stringify(data.users.photoUrl),
+          email: stringify(data.users.email),
+          emailVerified: stringify(data.users.emailVerified),
+          lastLoginAt: stringify(data.users.lastLoginAt),
+          createdAt: stringify(data.users.createdAt),
+        },
+      });
+    }
+  };
+};
+
+// // FEJL - GetUserInfo script
+// export const get_UserInfo = (token) => {
+//   return async (dispatch) => {
+//     console.log("tokenid:", token);
+//     const response = await fetch(
+//       "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           idToken: token,
+//         }),
+//       }
+//     );
+
+//     const data = await response.json();
+//     console.log(data);
+//     if (!response.ok) {
+//       Alert.alert("Something went wrong!", "Contact an administrator", [
+//         { text: "OK", onPress: () => console.log("OK Pressed") },
+//       ]);
+//     } else {
+//       await SecureStore.setItemAsync("displayName", data.displayName);
+//       await SecureStore.setItemAsync("photoUrl", data.photoUrl);
+//       await SecureStore.setItemAsync("email", data.email);
+//       await SecureStore.setItemAsync("emailVerified", data.emailVerified);
+//       await SecureStore.setItemAsync("lastLoginAt", data.lastLoginAt);
+//       await SecureStore.setItemAsync("createdAt", data.createdAt);
+//       dispatch({
+//         type: GET_USERINFO,
+//         payload: {
+//           displayName: data.displayName,
+//           photoUrl: data.photoUrl,
+//           email: data.email,
+//           emailVerified: data.emailVerified,
+//           lastLoginAt: data.lastLoginAt,
+//           createdAt: data.createdAt,
+//         },
+//       });
+//     }
+//   };
+// };
