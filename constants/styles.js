@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 5,
     paddingRight: 5,
-    backgroundColor: "f5f5f5",
+    backgroundColor: "#f5f5f5",
   },
   onlineContainer: {
     flexDirection: "row",
@@ -232,6 +232,15 @@ const styles = StyleSheet.create({
 
   modalContent: {},
   modalContainer: {},
+  modalToggle: {
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: "#f2f2f2",
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  modalClose: {},
 });
 
 export default styles;

@@ -2,16 +2,23 @@ import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP, DELETE_USER, EDIT_PROFILE } from "
 
 
 export interface UserState {
+    localId: string
+    displayName: string | undefined
     idToken: string | undefined;
-    email: string | undefined;
-    displayName: string | undefined;
+    email: string | undefined
+    emailVerified: boolean | false
+    password: string | undefined
 }
 
 const initialState: UserState = {
+    localId: '',
+    displayName: 'Default Username from the state',
     idToken: undefined,
-    email: undefined,
-    displayName: undefined,
+    email: 'state@redux.com',
+    emailVerified: false,
+    password: '',
 };
+
 
 export interface Action {
     type: string;

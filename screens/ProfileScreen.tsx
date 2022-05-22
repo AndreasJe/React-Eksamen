@@ -5,10 +5,8 @@ import { logout, delete_user, get_UserInfo } from '../store/actions/UserActions'
 import * as SecureStore from "expo-secure-store";
 import React from 'react';
 import styles from "../constants/styles";
-import { set } from 'firebase/database';
 import { RootState } from '../App';
 const defaultImage = require("../assets/defaultImage.png");
-
 
 
 

@@ -5,7 +5,7 @@ import Input from '../components/Input';
 import { useEffect, useState } from 'react';
 import Event from '../components/Event';
 import styles from "../constants/styles";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { fetchEvents, addEvent } from '../store/actions/EventActions';
 
 

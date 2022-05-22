@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import styles from "../constants/styles";
 
 

@@ -1,5 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
+import { Dispatch } from 'redux';
 
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
@@ -9,6 +10,8 @@ export const RESTORE_USER = "RESTORE_USER";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USERINFO = "GET_USERINFO";
 
+
+
 // Logout User script
 export const logout = () => {
   SecureStore.deleteItemAsync("email");
@@ -17,7 +20,7 @@ export const logout = () => {
 };
 
 // Restore User script
-export const restoreUser = (email, token, displayName) => {
+export const restoreUser = (email: undefined, token: undefined, displayName: string) => {
   return {
     type: RESTORE_USER,
     payload: { email, idToken: token, displayName },
@@ -25,8 +28,8 @@ export const restoreUser = (email, token, displayName) => {
 };
 
 // Delete User script
-export const delete_user = (token) => {
-  return async (dispatch) => {
+export const delete_user = (token: undefined) => {
+  return async (dispatch: any, getState: any) => {
     console.log("tokenid:", token);
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
@@ -50,7 +53,7 @@ export const delete_user = (token) => {
     } else {
       await SecureStore.setItemAsync("token", data.idToken);
       dispatch({
-        type: DELETE,
+        type: DELETE_USER,
         payload: { idToken: data.idToken },
       });
     }
@@ -58,8 +61,8 @@ export const delete_user = (token) => {
 };
 
 // Signup User script
-export const signup = (email, password, displayName) => {
-  return async (dispatch) => {
+export const signup = (email: undefined, password: undefined, displayName: string) => {
+  return async (dispatch: any, getState: any) => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
       {
@@ -96,8 +99,8 @@ export const signup = (email, password, displayName) => {
 };
 
 // Login User script
-export const login = (email, password) => {
-  return async (dispatch) => {
+export const login = (email: undefined, password: undefined) => {
+  return async (dispatch: any, getState: any) => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
       {
@@ -133,8 +136,8 @@ export const login = (email, password) => {
 };
 
 // Update User script
-export const edit_profile = (displayName, photoUrl) => {
-  return async (dispatch) => {
+export const edit_profile = (displayName: string, photoUrl: string) => {
+  return async (dispatch: any, getState: any) => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
       {
@@ -167,8 +170,8 @@ export const edit_profile = (displayName, photoUrl) => {
 };
 
 // DGetUserInfo script
-export const get_UserInfo = (token) => {
-  return async (dispatch) => {
+export const get_UserInfo = (token: undefined) => {
+  return async (dispatch: any, getState: any) => {
     console.log("tokenid:", token);
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
@@ -214,59 +217,14 @@ export const get_UserInfo = (token) => {
       dispatch({
         type: GET_USERINFO,
         payload: {
-          displayName: stringify(data.users.displayName),
-          photoUrl: stringify(data.users.photoUrl),
-          email: stringify(data.users.email),
-          emailVerified: stringify(data.users.emailVerified),
-          lastLoginAt: stringify(data.users.lastLoginAt),
-          createdAt: stringify(data.users.createdAt),
+          displayName: data.users.displayName,
+          photoUrl: data.users.photoUrl,
+          email: data.users.email,
+          emailVerified: data.users.emailVerified,
+          lastLoginAt: data.users.lastLoginAt,
+          createdAt: data.users.createdAt,
         },
       });
     }
   };
 };
-
-// // FEJL - GetUserInfo script
-// export const get_UserInfo = (token) => {
-//   return async (dispatch) => {
-//     console.log("tokenid:", token);
-//     const response = await fetch(
-//       "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           idToken: token,
-//         }),
-//       }
-//     );
-
-//     const data = await response.json();
-//     console.log(data);
-//     if (!response.ok) {
-//       Alert.alert("Something went wrong!", "Contact an administrator", [
-//         { text: "OK", onPress: () => console.log("OK Pressed") },
-//       ]);
-//     } else {
-//       await SecureStore.setItemAsync("displayName", data.displayName);
-//       await SecureStore.setItemAsync("photoUrl", data.photoUrl);
-//       await SecureStore.setItemAsync("email", data.email);
-//       await SecureStore.setItemAsync("emailVerified", data.emailVerified);
-//       await SecureStore.setItemAsync("lastLoginAt", data.lastLoginAt);
-//       await SecureStore.setItemAsync("createdAt", data.createdAt);
-//       dispatch({
-//         type: GET_USERINFO,
-//         payload: {
-//           displayName: data.displayName,
-//           photoUrl: data.photoUrl,
-//           email: data.email,
-//           emailVerified: data.emailVerified,
-//           lastLoginAt: data.lastLoginAt,
-//           createdAt: data.createdAt,
-//         },
-//       });
-//     }
-//   };
-// };

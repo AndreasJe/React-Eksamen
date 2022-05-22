@@ -1,4 +1,3 @@
-import { CHATROOMS } from "../../dummy.data";
 import { Chatroom } from "../../entities/Chatroom";
 import {
   SUBTRACT,
@@ -11,17 +10,10 @@ import {
 
 const initialState = {
   chatrooms: [],
-  counter: 0,
-  isOnline: false,
-  name: "Andre",
 };
 
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD:
-      return { ...state, counter: state.counter + 1 };
-    case SUBTRACT:
-      return { ...state, counter: state.counter - 1 };
     case TOGGLE_ONLINE:
       return { ...state, isOnline: !state.isOnline };
     case FETCH_CHATROOMS:
