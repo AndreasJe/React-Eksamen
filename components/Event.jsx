@@ -1,13 +1,14 @@
-import { View, Text, ImageBackground, TextInput, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import styles from '../constants/styles'
+import styles from '../components/styles'
 
 
 
 const Event = props => {
     return (
-        <View 
-        style={[styles.card,styles.shadowProp]}>
+        <TouchableOpacity 
+        style={[styles.card,styles.shadowProp]}
+        onPress={props.redirect}  >
             
         <ImageBackground 
         imageStyle={{ borderRadius: 10}}
@@ -41,7 +42,7 @@ const Event = props => {
 
             </View>
             </ImageBackground>
-            </View>
+            </TouchableOpacity>
     );
 }
 

@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Screen1 from './../screens/Screen1';
-import Screen2 from './../screens/Screen2';
-import Screen3 from './../screens/Screen3';
+import ChatScreen1 from './../screens/ChatScreen1';
+import ChatScreen2 from './../screens/ChatScreen2';
+import ChatScreen3 from './../screens/ChatScreen3';
 import MenuScreen from './../screens/MenuScreen';
 import HomeScreen from './../screens/HomeScreen';
 import DiscoverScreen from './../screens/DiscoverScreen';
@@ -15,6 +15,7 @@ import ProfileScreen from './../screens/ProfileScreen';
 import EditProfileScreen from './../screens/EditProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import EventDetails from '../screens/EventDetailsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,8 @@ const NavigationComponent = ({ navigation }) => {
     return (
         <NavigationContainer >
             {token !== undefined ? (
-                // Show the app with all navigation
+                // if token is present show app tab navigator, if not show login/signup stack.
+                // Tabnavigator with app content
                 <Tab.Navigator           
              
                 screenOptions={{
@@ -64,7 +66,7 @@ const NavigationComponent = ({ navigation }) => {
                     }}/>
                     <Tab.Screen 
                     name='Discover' 
-                    component={DiscoverScreen} 
+                    component={EventStack} 
                     options={{
                         tabBarIcon: ({ focused }) => (
                         <Ionicons
@@ -97,7 +99,7 @@ const NavigationComponent = ({ navigation }) => {
                     }}/>
                 </Tab.Navigator>
             ) : (
-                // show a stack navigator with only signup and login screens.
+                // Stack navigator with only signup and login screens.
                 <Stack.Navigator>
                     <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
                     <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
@@ -117,12 +119,23 @@ function MenuStack() {
     )
 }
 
+
+function EventStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen  name='DiscoverScreen' component={DiscoverScreen}  options={{ headerShown: false }} ></Stack.Screen>
+            <Stack.Screen name='EventDetails' component={EventDetails}  options={({ route }) => ({ title: route.params.title })} ></Stack.Screen>
+            
+        </Stack.Navigator>
+    )
+}
+
 function ChatStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Screen1' component={Screen1}  options={{ headerShown: false }} />
-            <Stack.Screen name='Screen2' component={Screen2}  />
-            <Stack.Screen name='AndreScreen' component={Screen3}   />
+            <Stack.Screen name='Screen1' component={ChatScreen1}  options={{ headerShown: false }} />
+            <Stack.Screen name='Screen2' component={ChatScreen2}  />
+            <Stack.Screen name='AndreScreen' component={ChatScreen3}   />
         </Stack.Navigator>
     );
 }

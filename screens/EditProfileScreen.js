@@ -1,66 +1,88 @@
 import {
-  Image,
-  TouchableOpacity,
   StyleSheet,
-  View,
   Text,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
   Button,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Input from "./../components/Input";
-import { delete_user, get_UserInfo } from "./../store/actions/UserActions";
-import * as SecureStore from "expo-secure-store";
-import { useState, useEffect } from "react";
-import styles from "../constants/styles";
+import styles from "../components/styles";
+import Input from "../components/Input";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+const defaultImage = require("../assets/defaultImage.png");
 
 const EditProfileScreen = ({ navigation }) => {
   const username = useSelector((state) => state.user.username);
   const [validUsername, setValidUsername] = useState(username !== "");
   const dispatch = useDispatch();
-
-  async function fetchUserInfo() {
-    let tokenFromSecureStore = await SecureStore.getItemAsync("token");
-    if (tokenFromSecureStore) {
-      console.log("User data has been fetched");
-
-      dispatch(get_UserInfo(tokenFromSecureStore));
-    } else {
-      console.log("Couldn't load tokenID from the SecureStore");
-    }
-  }
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    fetchUserInfo(); // uncomment to read from secure store
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
   }, []);
 
-  const save = () => {
-    // ** if the 'form' is valid ** {
-    // save data - we need access to text here...
-    //} else {
-    // display error message
-    //}
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
   };
 
   return (
-    <View>
-      <Image style={styles.logo} source={require("../assets/icon.png")} />
-      <Text>I am EditProfileScreen</Text>
-      <Input
-        style={styles.shadow}
-        label="Username"
-        inputValue={username}
-        error="Username cannot be empty."
-        valid={validUsername}
-        setValid={setValidUsername}
+    <KeyboardAwareScrollView>
+      <Button
+        title="Go back to Profile"
+        onPress={() => navigation.navigate("Profile")}
       />
-      <Input label="Hi" inputValue="" error="Cannot be empty" />
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => dispatch()}
-      >
-        <Text style={styles.buttonText}> Save </Text>
-      </TouchableOpacity>
-    </View>
+      <Text style={styles.header}>Edit profile</Text>
+      <View style={styles.flexContainer}>
+        <View style={styles.center}>
+          {image == undefined ? (
+            <Image source={defaultImage} />
+          ) : (
+            <Image
+              style={{ width: 100, height: 100, borderRadius: 50 }}
+              source={{ uri: image }}
+            />
+          )}
+          <Button
+            title="Change photo"
+            onPress={pickImage}
+            style={styles.shadow}
+          />
+        </View>
+      </View>
+      <View style={styles.flexContainer}>
+        <View style={styles.center}>
+          <Input
+            label="Username"
+            inputValue={username}
+            error="Username cannot be empty."
+            valid={validUsername}
+            setValid={setValidUsername}
+            placeholder="E.g John D"
+          />
+
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Text style={styles.buttonText}> Save</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
