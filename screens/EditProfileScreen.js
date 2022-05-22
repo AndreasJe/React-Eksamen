@@ -10,7 +10,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styles from "../components/styles";
+import styles from "../constants/styles";
 import Input from "../components/Input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const defaultImage = require("../assets/defaultImage.png");

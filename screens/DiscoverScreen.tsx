@@ -4,7 +4,7 @@ import { RootState } from '../App';
 import Input from '../components/Input';
 import { useEffect, useState } from 'react';
 import Event from '../components/Event';
-import styles from "../components/styles";
+import styles from "../constants/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { fetchEvents, addEvent } from '../store/actions/EventActions';
 
@@ -81,7 +81,7 @@ const DiscoverScreen = ({ navigation }: { navigation: any }) => {
   ]
   )
     return (
-        <View>     
+        <View style={styles.mainContainer}>     
           <View style={styles.blockHeader}>
          <Ionicons name="calendar" style={styles.headerIkon}></Ionicons>
           <Text style={styles.blockHeaderText}>Upcoming events:</Text>

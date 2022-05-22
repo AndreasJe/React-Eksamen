@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import  styles  from '../components/styles';
-import { Button, FlatList, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import styles from "../constants/styles";
+import { Button, FlatList, Modal, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../App';
 import Input from '../components/Input';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { addChatroom, deleteChatroom, fetchChatrooms, toggleOnline } from '../store/actions/ChatActions';
 
 
 const ChatScreen1 = ({ navigation }: { navigation: any }) => {
+    const [modalOpen, setModalOpen] = useState(false);
     const [text, onChangeText] = useState('');
 
     const isOnline = useSelector((state: RootState) => state.chat.isOnline); // subscribing to the store's chat slice/part
@@ -31,7 +33,25 @@ const ChatScreen1 = ({ navigation }: { navigation: any }) => {
 
 
     return (
-        <View>
+        <View style={styles.modalContainer}>
+
+            <Modal visible={modalOpen} animationType='slide'>
+                <View style={styles.modalContent}>
+                    <Text>Modal Open</Text>
+                    <Ionicons 
+                    name='add-circle-outline'
+                    onPress={() => setModalOpen(true)}
+                    style={styles.ikon}
+                                ></Ionicons>
+                </View>
+            </Modal>
+
+            <Ionicons 
+            name='add-circle-outline'
+            onPress={() => setModalOpen(true)}
+            style={styles.ikon}
+                        ></Ionicons>
+
             <Text>I am screen 1</Text>
                 <View style={styles.onlineContainer} >
                     <Text>Online Status:</Text>

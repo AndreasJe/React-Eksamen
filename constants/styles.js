@@ -1,8 +1,12 @@
+import { WHEN_UNLOCKED_THIS_DEVICE_ONLY } from "expo-secure-store";
 import { StyleSheet } from "react-native";
 ("use strict");
 
 var React = require("react-native");
 const styles = StyleSheet.create({
+  mainContainer: {
+    marginBottom: 40,
+  },
   card: {
     alignSelf: "center",
     alignItems: "center",
@@ -76,7 +80,23 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.2)",
   },
   flexContainer: {
+    alignItems: "center",
     flexDirection: "row",
+  },
+  flexColorContainer: {
+    flexDirection: "row",
+    backgroundColor: "#5050a5",
+    height: 40,
+    alignItems: "center",
+    alignContent: "center",
+  },
+  descriptionContainer: {
+    width: "100%",
+    height: "100%",
+    padding: 20,
+    backgroundColor: "#fefefe",
+    fontSize: 14,
+    fontStyle: "italic",
   },
   ikon: {
     height: 16,
@@ -126,13 +146,34 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginLeft: -4,
   },
+  headerIkon: {
+    height: 40,
+    width: 40,
+    fontSize: 40,
+    marginTop: -10,
+    marginLeft: 10,
+    marginRight: -10,
+    color: "white",
+  },
+  blockHeaderText: {
+    fontSize: 26,
+    marginLeft: 20,
+    color: "white",
+  },
   header: {
-    marginTop: 10,
+    marginTop: 15,
     fontSize: 26,
     fontWeight: "700",
-    marginBottom: 20,
+    marginBottom: 10,
     color: "#32305d",
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  blockHeader: {
+    fontWeight: "700",
+    backgroundColor: "#32305d",
     padding: 20,
+    flexDirection: "row",
   },
   input: {
     alignSelf: "center",
@@ -176,10 +217,21 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  eventList: {
+    marginTop: 30,
+    marginBottom: 30,
+    paddingBottom: 30,
+    paddingLeft: 5,
+    paddingRight: 5,
+    backgroundColor: "f5f5f5",
+  },
   onlineContainer: {
     flexDirection: "row",
     justifyContent: "center",
   },
+
+  modalContent: {},
+  modalContainer: {},
 });
 
 export default styles;
