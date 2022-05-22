@@ -4,7 +4,7 @@ import { Button, FlatList, Modal, Text, TouchableOpacity, StyleSheet, View } fro
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../App';
 import Input from '../components/Input';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { addChatroom, deleteChatroom, fetchChatrooms, toggleOnline } from '../store/actions/ChatActions';
 
 
@@ -40,8 +40,8 @@ const ChatScreen1 = ({ navigation }: { navigation: any }) => {
                     <Text>Modal Open</Text>
                     <Ionicons 
                     name='add-circle-outline'
-                    onPress={() => setModalOpen(true)}
-                    style={styles.ikon}
+                    style={{...styles.modalToggle, ...styles.modalClose}}
+                    onPress={() => setModalOpen(false)}
                                 ></Ionicons>
                 </View>
             </Modal>
@@ -49,7 +49,7 @@ const ChatScreen1 = ({ navigation }: { navigation: any }) => {
             <Ionicons 
             name='add-circle-outline'
             onPress={() => setModalOpen(true)}
-            style={styles.ikon}
+            style={styles.modalToggle}
                         ></Ionicons>
 
             <Text>I am screen 1</Text>
