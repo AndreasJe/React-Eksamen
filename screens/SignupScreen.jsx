@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { restoreUser, signup } from './../store/actions/UserActions'
 import * as SecureStore from 'expo-secure-store';
-import styles from '../constants/styles'
+import styles from '../components/styles'
 
 const SignupScreen = ({ navigation }) => {
     const [displayName, setdisplayName] = useState('')
