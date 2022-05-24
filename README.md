@@ -16,7 +16,8 @@ Download project and run the following commands in root to install dependencies 
   npm install
   expo start
 ```
-    ## Potential Future Features
+
+## Potential Future Features
 
 - User State Management 
 - Chat message functionality
