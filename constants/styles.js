@@ -10,8 +10,6 @@ var React = require("react-native");
 const styles = StyleSheet.create({
   mainContainer: {
     minWidth: Dimensions.get("window").width,
-    minHeight: Dimensions.get("window").height,
-    marginBottom: 40,
   },
   card: {
     alignSelf: "center",
@@ -40,6 +38,7 @@ const styles = StyleSheet.create({
   },
   cardGroup: {
     marginLeft: 20,
+    alignSelf: "flex-start",
     fontSize: 16,
     fontWeight: "600",
     color: "white",
@@ -49,8 +48,11 @@ const styles = StyleSheet.create({
   },
   cardTime: {
     fontSize: 14,
+    alignSelf: "flex-start",
     fontWeight: "700",
     color: "white",
+    width: "100%",
+    justifyContent: "flex-start",
     textShadowColor: "rgba(0, 0, 0, 0.45)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
@@ -58,6 +60,8 @@ const styles = StyleSheet.create({
   cardLocation: {
     fontSize: 14,
     color: "white",
+    width: "100%",
+    justifyContent: "flex-start",
     textShadowColor: "rgba(0, 0, 0, 0.45)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 5,
@@ -98,11 +102,29 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   flexContainer: {
+    width: "100%",
     justifyContent: "center",
     flexDirection: "row",
     padding: 10,
     width: Dimensions.get("window").width,
   },
+  value: {
+    marginLeft: 30,
+    marginRight: 30,
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    fontSize: 12,
+    fontStyle: "italic",
+  },
+  type: {
+    marginLeft: 30,
+    marginRight: 30,
+    alignSelf: "flex-start",
+    justifyContent: "flex-start",
+    fontSize: 17,
+    fontWeight: "700",
+  },
+
   topRightContainer: {
     minWidth: "50%",
     alignItems: "center",
@@ -186,6 +208,24 @@ const styles = StyleSheet.create({
     marginRight: 30,
     borderRadius: 10,
     height: 60,
+  },
+  valid: {
+    backgroundColor: "#5050a5",
+    justifyContent: "center",
+    borderRadius: 10,
+    padding: 20,
+    margin: 10,
+    height: 60,
+    width: Dimensions.get("window").width / 2.3,
+  },
+  invalid: {
+    backgroundColor: "#5050a5",
+    justifyContent: "center",
+    borderRadius: 10,
+    padding: 20,
+    margin: 10,
+    height: 60,
+    width: Dimensions.get("window").width / 2.3,
   },
   doubleButtonContainer: {
     backgroundColor: "#5050a5",
@@ -316,11 +356,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 40,
   },
   eventList: {
     marginTop: 30,
-    marginBottom: 30,
-    paddingBottom: 30,
     paddingLeft: 10,
     paddingRight: 10,
     backgroundColor: "#f5f5f5",
@@ -374,7 +413,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   userDetails: {
-    width: "60%",
+    width: "65%",
+    padding: 20,
+  },
+  userDetailsStore: {
+    width: "100%",
     padding: 20,
   },
   avatarEdit: {

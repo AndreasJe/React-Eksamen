@@ -1,8 +1,7 @@
-import { View, TouchableOpacity, StyleSheet, Image, Text, TextInput, Button } from 'react-native';
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { restoreUser, signup } from './../store/actions/UserActions'
-import * as SecureStore from 'expo-secure-store';
+import { View, TouchableOpacity, Image, Text, TextInput } from 'react-native';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { signup } from './../store/actions/UserActions'
 import styles from "../constants/styles";
 
 const SignupScreen = ({ navigation }) => {
@@ -10,21 +9,6 @@ const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
-
-    async function load() {
-        let emailFromSecureStore = await SecureStore.getItemAsync('email');
-        let tokenFromSecureStore = await SecureStore.getItemAsync('token');
-        if (emailFromSecureStore && tokenFromSecureStore) {
-            console.log("success", emailFromSecureStore);
-
-            dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
-        } else {
-            console.log("Couldn't load from the SecureStore");
-        }
-    }
-     useEffect(() => {
-         load(); // uncomment to read from secure store
-     }, [])
 
     return (
     <View>

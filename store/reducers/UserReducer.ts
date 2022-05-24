@@ -2,23 +2,25 @@ import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP, DELETE_USER, EDIT_PROFILE } from "
 
 
 export interface UserState {
-    isOnline: boolean | false
     localId: string
     displayName: string | undefined
     idToken: undefined | undefined
     email: string | undefined
     emailVerified: boolean | false
-    password: string | undefined
+    createdAt: string | undefined
+    lastLoginAt: string | undefined
+    isOnline: boolean | false
 }
 
 const initialState: UserState = {
-    isOnline: false,
     localId: '',
-    displayName: 'Default Username from the state',
+    displayName: 'John Doe State ',
     idToken: undefined,
     email: 'state@redux.com',
     emailVerified: false,
-    password: '',
+    createdAt: '',
+    lastLoginAt: '',
+    isOnline: false,
 };
 
 
@@ -30,17 +32,17 @@ export interface Action {
 const userReducer = (state: UserState = initialState, action: Action) => {
     switch (action.type) {
         case SIGNUP:
-            return { ...state, idToken: action.payload.idToken, email: action.payload.email }
+            return { ...state, idToken: action.payload.idToken, email: action.payload.email, displayName: action.payload.string  }
         case RESTORE_USER:
-            return { ...state, idToken: action.payload.idToken, email: action.payload.email, }
+            return { ...state, idToken: action.payload.idToken, localId: action.payload.localId, email: action.payload.email, displayName: action.payload.displayName,  }
         case LOGOUT:
             return { ...state, idToken: undefined, email: undefined }
         case LOGIN:
-            return { ...state, idToken: action.payload.idToken, email: action.payload.email }
+            return { ...state, idToken: action.payload.idToken, email: action.payload.email, displayName: action.payload.string }
         case DELETE_USER:
-            return { ...state, idToken: action.payload.idToken }
+            return { ...state, idToken: undefined }
         case EDIT_PROFILE:
-            return { ...state, idToken: action.payload.idToken, displayName: action.payload.string, email: action.payload.string }
+            return { ...state, idToken: action.payload.idToken, displayName: action.payload.string, }
 
         default:
             return state; //does not do anything yet​   

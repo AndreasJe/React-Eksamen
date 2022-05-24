@@ -6,6 +6,7 @@ import {
   Image,
   Button,
 } from "react-native";
+import { RootState } from "./../App";
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,11 +14,14 @@ import styles from "../constants/styles";
 import Input from "../components/Input";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { edit_profile } from "../store/actions/UserActions";
 const defaultImage = require("../assets/defaultImage.png");
 
-const EditProfileScreen = ({ navigation }) => {
-  const username = useSelector((state) => state.user.username);
-  const [validUsername, setValidUsername] = useState(username !== "");
+const EditProfileScreen = ({ navigation }: { navigation: any }) => {
+  const user = useSelector((state: RootState) => state.user);
+  const [validDisplayName, setValidDisplayName] = useState(false);
+  const [displayName, setDisplayName] = useState(user.displayName);
+  const ValidForm = validDisplayName;
   const imgUrl = useSelector((state) => state.user.imgUrl);
   const dispatch = useDispatch();
   const [newImage, setNewImage] = useState(null);
@@ -71,15 +75,18 @@ const EditProfileScreen = ({ navigation }) => {
         <View style={styles.center}>
           <Input
             label="Username"
-            inputValue={username}
+            text={displayName}
+            setText={setDisplayName}
             error="Username cannot be empty."
-            valid={validUsername}
-            setValid={setValidUsername}
+            Valid={validDisplayName}
+            setValid={setValidDisplayName}
             placeholder="E.g John D"
           />
 
           <View style={styles.flexContainer}>
-            <TouchableOpacity style={styles.doubleButtonContainer}>
+            <TouchableOpacity onPress={() => dispatch(edit_profile(displayName, idToken))}
+              style={styles.valid}
+            >
               <Text style={styles.buttonText}>Save Changes</Text>
             </TouchableOpacity>
             <TouchableOpacity

@@ -8,9 +8,14 @@ const Input = props => {
 
 
     const handleChangeText = (text) => {
-        setEntered(true);
-        setText(text);
-    }
+        setText(text)
+        setEntered(true)
+        if (text === '') {
+          props.setValid(false)
+        } else {
+            props.setValid(true)
+        }
+      }
 
     const handleOnBlur = (text) => {
         setEntered(true)
@@ -20,6 +25,7 @@ const Input = props => {
         <View>
             <Text style={styles.label}>{props.label}</Text>
             <TextInput style={styles.input} value={text} onChangeText={handleChangeText} placeholder={props.placeholder} onBlur={handleOnBlur} />
+            {!props.isValid && entered && <Text>{props.error}</Text>}
         </View>
     );
 }

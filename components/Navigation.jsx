@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as SecureStore from "expo-secure-store";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Chatrooms from '../screens/Chatrooms';
 import ChatroomDetails from '../screens/ChatroomDetails';
@@ -23,33 +23,28 @@ const Tab = createBottomTabNavigator();
 
 const NavigationComponent = ({ navigation }) => {
     let token = useSelector(state => state.user.idToken)
+    let user = useSelector(state => state.user)
+    const [latestState, setLatestState] = useState([])
+    const dispatch = useDispatch()
 
     // Loading in user data globally
     useEffect(() => {
-        loadUserData();
+        load();
     }, []);
 
-    async function loadUserData() {
-        const tokenFromSecureStore = await SecureStore.getItemAsync('idToken');
 
-        if (tokenFromSecureStore) {
-            
+    async function load() {
+        let emailFromSecureStore = await SecureStore.getItemAsync('email');
+        let tokenFromSecureStore = await SecureStore.getItemAsync('idToken');
+        if (tokenFromSecureStore,emailFromSecureStore ) {
+            console.log("TokenID was found. Recovering userData");
             dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
-            get_UserInfo(tokenFromSecureStore);
-            const localIdFromSecureStore = await SecureStore.getItemAsync('localId');
-            const displayNameFromSecureStore = await SecureStore.getItemAsync('displayName');
-            const emailFromSecureStore = await SecureStore.getItemAsync('email');
-            const emailVerifiedFromSecureStore = await SecureStore.getItemAsync('emailVerified');
-            const lastLoginAtFromSecureStore = await SecureStore.getItemAsync('lastLoginAt');
-            const createdAtFromSecureStore = await SecureStore.getItemAsync('createdAt');
-
-
 
         } else {
-            useDispatch(logout())
+            console.log("No user token found. Log back in");
         }
-
     }
+
     return (
         <NavigationContainer >
             {token !== undefined ? (

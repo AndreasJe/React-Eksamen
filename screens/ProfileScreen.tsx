@@ -1,7 +1,6 @@
-import { StyleSheet,StatusBar, View, Text, Button, TouchableOpacity, Image } from 'react-native';
+import { StatusBar, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
-import { useEffect } from 'react';
-import { logout, delete_user, get_UserInfo } from '../store/actions/UserActions';
+import { logout, delete_user } from '../store/actions/UserActions';
 import * as SecureStore from "expo-secure-store";
 import React from 'react';
 import styles from "../constants/styles";
@@ -16,8 +15,9 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   const user = useSelector((state: RootState) => state.user)
 
 
+
     async function deleteAction() {
-      let tokenFromSecureStore  = await SecureStore.getItemAsync('token');
+      let tokenFromSecureStore  = await SecureStore.getItemAsync('idToken');
       if (tokenFromSecureStore) {
           console.log("success", tokenFromSecureStore);
 
@@ -30,7 +30,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
 
     return (
-      <View style={styles.mainContainer}>
+      <ScrollView style={styles.mainContainer}>
         <View style={styles.StatusBar}>
           <StatusBar translucent barStyle="light-content" />
         </View>
@@ -41,14 +41,31 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
         <View style={styles.flexContainer}>
         <View style={styles.userDetails}>
-          <Text style={styles.subHeader}>Hello, {user.displayName}:</Text>
+          <Text style={styles.subHeader}>Hello, + {user.displayName} </Text>
+          <Text>{user.displayName}</Text>
           <Text style={styles.copyText}>Here is your profile information. If you want to change it or escape our hold, follow the options below.</Text>
+        <View></View>
         </View>
+
 
         <View style={styles.avatarContainer}>
           <Image style={styles.avatarDef} source={defaultImage} />
         </View>
 
+        </View>
+
+        
+        <View style={styles.userDetailsStore}>
+        <Text style={styles.type}>DisplayName:</Text><Text  style={styles.value}>{user.displayName}</Text>
+        </View>
+        <View style={styles.userDetailsStore}>
+        <Text style={styles.type}>IdToken:</Text><Text  style={styles.value}>{user.idToken}</Text>
+        </View>
+        <View style={styles.userDetailsStore}>
+        <Text style={styles.type}>isOnline:</Text><Text  style={styles.value}>{user.displayName}</Text>
+        </View>
+        <View style={styles.userDetailsStore}>
+        <Text style={styles.type}>DisplayName:</Text><Text  style={styles.value}>{user.displayName}</Text>
         </View>
 
         <View style= {{justifyContent:'flex-end'}}>
@@ -71,7 +88,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
               <Text style={styles.buttonText}> Delete user</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
 }
 

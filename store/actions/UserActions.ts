@@ -12,28 +12,7 @@ export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USERINFO = "GET_USERINFO";
 
 
-// Intialstate for currentUser
-const initialState: InitialUserState = {
-  localId: '',
-  displayName: 'John Doe State ',
-  idToken: undefined,
-  email: 'state@redux.com',
-  emailVerified: false,
-  createdAt: '',
-  lastLoginAt: '',
-  isOnline: false,
-}
 
-export interface InitialUserState {
-  localId: string
-  displayName: string | undefined
-  idToken: undefined | undefined
-  email: string | undefined
-  emailVerified: boolean | false
-  createdAt: string | undefined
-  lastLoginAt: string | undefined
-  isOnline: boolean | false
-}
 
 // Logout User script
 export const logout = () => {
@@ -155,18 +134,18 @@ export const login = (email: undefined, password: undefined) => {
         [{ text: "OK", onPress: () => console.log("OK Pressed") }]
       );
     } else {
-      await SecureStore.setItemAsync("email", data.email);
-      await SecureStore.setItemAsync("idToken", data.idToken);
-      dispatch({
-        type: LOGIN,
-        payload: { email: data.email, idToken: data.idToken },
-      });
-    }
+        await SecureStore.setItemAsync("email", data.email);
+        await SecureStore.setItemAsync("idToken", data.idToken);
+        dispatch({
+          type: LOGIN,
+          payload: { email: data.email, idToken: data.idToken },
+        });
+      }
+    };
   };
-};
 
 // Update User script
-export const edit_profile = (displayName: string) => {
+export const edit_profile = (idToken: undefined, displayName: string) => {
   return async (dispatch: any, getState: any) => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
@@ -176,6 +155,7 @@ export const edit_profile = (displayName: string) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          idToken: idToken,
           displayName: displayName,
         }),
       }
@@ -192,7 +172,7 @@ export const edit_profile = (displayName: string) => {
     } else {
       dispatch({
         type: EDIT_PROFILE,
-        payload: { displayName: data.displayName, photoUrl: data.photoUrl },
+        payload: {  idToken: data.idToken, displayName: data.displayName },
       });
     }
   };
@@ -222,23 +202,12 @@ export const get_UserInfo = (idToken: undefined) => {
         { text: "OK", onPress: () => console.log("OK Pressed") },
       ]);
     } else {
-      await SecureStore.setItemAsync(
-        "displayName",
-        JSON.stringify(data.users[0].displayName));
-        await SecureStore.setItemAsync(
-          "localId",
-          JSON.stringify(data.users[0].localId));
-      await SecureStore.setItemAsync("email",  
-        JSON.stringify(data.users[0].email));
-      await SecureStore.setItemAsync(
-        "emailVerified",
-        JSON.stringify(data.users[0].emailVerified));
-      await SecureStore.setItemAsync(
-        "lastLoginAt",
-        JSON.stringify(data.users[0].lastLoginAt));
-      await SecureStore.setItemAsync(
-        "createdAt",
-        JSON.stringify(data.users[0].createdAt));
+      await SecureStore.setItemAsync("displayName",data.users[0].displayName);
+      await SecureStore.setItemAsync("localId",JSON.stringify(data.users[0].localId));
+      await SecureStore.setItemAsync("email",JSON.stringify(data.users[0].email));
+      await SecureStore.setItemAsync("emailVerified",JSON.stringify(data.users[0].emailVerified));
+      await SecureStore.setItemAsync("lastLoginAt",JSON.stringify(data.users[0].lastLoginAt));
+      await SecureStore.setItemAsync("createdAt",JSON.stringify(data.users[0].createdAt));
       dispatch({
         type: GET_USERINFO,
         payload: {
