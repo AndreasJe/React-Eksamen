@@ -9,7 +9,6 @@ const LoginScreen = ({ navigation }) => {
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
 
-
     return (
     <View>
             <Image

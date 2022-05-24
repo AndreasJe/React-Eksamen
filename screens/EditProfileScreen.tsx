@@ -84,7 +84,7 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
           />
 
           <View style={styles.flexContainer}>
-            <TouchableOpacity onPress={() => dispatch(edit_profile(displayName, idToken))}
+            <TouchableOpacity onPress={() => dispatch(edit_profile(displayName, user.idToken))}
               style={styles.valid}
             >
               <Text style={styles.buttonText}>Save Changes</Text>

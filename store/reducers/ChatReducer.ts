@@ -29,8 +29,7 @@ const chatReducer = (state = initialState, action: TypeAction) => {
       return { ...state, isOnline: !state.isOnline };
 
     case ADD_CHATROOM:
-      console.log(action.payload.chatroomName); // Should print out the chatroomName
-      //state.chatrooms.push(chatroom); // mutate chatrroms array! Not Allowed!
+      console.log(action.payload.chatroomName); 
 
       const chatroom = new Chatroom(
         action.payload.chatroomName,
@@ -38,7 +37,6 @@ const chatReducer = (state = initialState, action: TypeAction) => {
         "",
         action.payload.id
       );
-      // const chatroom = { title: action.payload, chatmessages: [], imageUrl: ''}
 
       const newChatroomArray = [...state.chatrooms, chatroom];
       return { ...state, chatrooms: newChatroomArray };
@@ -52,7 +50,7 @@ const chatReducer = (state = initialState, action: TypeAction) => {
       };
 
     default:
-      return state; //does not do anything yet​
+      return state; 
   }
 };
 

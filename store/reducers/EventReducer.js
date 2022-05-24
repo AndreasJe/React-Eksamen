@@ -3,9 +3,7 @@ import { ADD_EVENT, FETCH_EVENTS } from "../actions/ChatActions";
 
 const initialState = {
   events: [],
-  counter: 0,
   isOnline: false,
-  name: "Andre",
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -14,7 +12,7 @@ const chatReducer = (state = initialState, action) => {
       return { ...state, events: action.payload };
 
     case ADD_EVENT:
-      console.log(action.payload); // Should print out the eventName
+      console.log(action.payload);
 
       const event = new Event(
         action.payload.eventName,
@@ -26,7 +24,7 @@ const chatReducer = (state = initialState, action) => {
       return { ...state, events: newEventArray };
 
     default:
-      return state; //does not do anything yet​
+      return state;
   }
 };
 
