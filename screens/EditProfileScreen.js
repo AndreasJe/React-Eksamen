@@ -1,11 +1,9 @@
 import {
-  StyleSheet,
   Text,
   StatusBar,
   View,
   TouchableOpacity,
   Image,
-  TextInput,
   Button,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
@@ -13,7 +11,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../constants/styles";
 import Input from "../components/Input";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const defaultImage = require("../assets/defaultImage.png");
 
@@ -21,9 +19,8 @@ const EditProfileScreen = ({ navigation }) => {
   const username = useSelector((state) => state.user.username);
   const [validUsername, setValidUsername] = useState(username !== "");
   const imgUrl = useSelector((state) => state.user.imgUrl);
-  const [validIMGurl, setValidIMGurl] = useState(username !== "");
   const dispatch = useDispatch();
-  const [image, setImage] = useState(null);
+  const [newImage, setNewImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -47,29 +44,21 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView style={styles.mainContainer}>
       <View style={styles.StatusBar}>
         <StatusBar translucent barStyle="light-content" />
       </View>
       <View style={styles.blockHeader}>
-        <Ionicons name="calendar" style={styles.headerIkon}></Ionicons>
-        <Text style={styles.blockHeaderText}>Upcoming events:</Text>
+        <Ionicons name="person" style={styles.headerIkon}></Ionicons>
+        <Text style={styles.blockHeaderText}>Edit Profile:</Text>
       </View>
 
-      <Button
-        title="Go back to Profile"
-        onPress={() => navigation.navigate("Profile")}
-      />
-      <Text style={styles.header}>Edit profile</Text>
-      <View style={styles.flexContainer}>
+      <View style={styles.centerContainer}>
         <View style={styles.center}>
-          {image == undefined ? (
-            <Image source={defaultImage} />
+          {newImage == undefined ? (
+            <Image style={styles.avatarEdit} source={defaultImage} />
           ) : (
-            <Image
-              style={{ width: 100, height: 100, borderRadius: 50 }}
-              source={{ uri: image }}
-            />
+            <Image style={styles.avatarEdit} source={{ uri: newImage }} />
           )}
           <Button
             title="Change photo"
@@ -89,9 +78,17 @@ const EditProfileScreen = ({ navigation }) => {
             placeholder="E.g John D"
           />
 
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}> Save</Text>
-          </TouchableOpacity>
+          <View style={styles.flexContainer}>
+            <TouchableOpacity style={styles.doubleButtonContainer}>
+              <Text style={styles.buttonText}>Save Changes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Profile")}
+              style={styles.doubleButtonContainer}
+            >
+              <Text style={styles.buttonText}>Go back</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </KeyboardAwareScrollView>

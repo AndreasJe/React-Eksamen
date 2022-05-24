@@ -1,15 +1,10 @@
 import React from "react";
 import {
-  StyleSheet,
   View,
-  TouchableOpacity,
   Text,
   StatusBar,
   Button,
-  ImageBackground,
 } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from '@react-navigation/native';
 import styles from "../constants/styles";
 
 const ChatroomDetails = ({navigation, route}) => {

@@ -9,7 +9,6 @@ export interface UserState {
     email: string | undefined
     emailVerified: boolean | false
     password: string | undefined
-    tokenFromSecureStore: string | undefined 
 }
 
 const initialState: UserState = {
@@ -19,7 +18,6 @@ const initialState: UserState = {
     idToken: undefined,
     email: 'state@redux.com',
     emailVerified: false,
-    tokenFromSecureStore: '',
     password: '',
 };
 
@@ -34,7 +32,7 @@ const userReducer = (state: UserState = initialState, action: Action) => {
         case SIGNUP:
             return { ...state, idToken: action.payload.idToken, email: action.payload.email }
         case RESTORE_USER:
-            return { ...state, idToken: action.payload.idToken, email: action.payload.email }
+            return { ...state, idToken: action.payload.idToken, email: action.payload.email, }
         case LOGOUT:
             return { ...state, idToken: undefined, email: undefined }
         case LOGIN:

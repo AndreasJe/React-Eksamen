@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button, FlatList,StatusBar, StyleSheet, SafeAreaView, Text, TextInput, Modal, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
+import {  FlatList,StatusBar, Text, TextInput, Modal, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../App';
 import styles from "../constants/styles";
-import ChatroomForm from './forms/ChatroomForm';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { addChatroom, deleteChatroom, fetchChatrooms, toggleOnline } from '../store/actions/ChatActions';
 
 const Chatrooms = ({ navigation }: { navigation: any }) => {
     const [text, onChangeText] = useState('');
-    const [chatroomName, setchatroomName] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const isOnline = useSelector((state: RootState) => state.chat.isOnline); // subscribing to the store's chat slice/part
     const dispatch = useDispatch(); 
@@ -39,7 +37,6 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
 
     return (
     <KeyboardAvoidingView style={styles.mainContainer}>
-
         <View style={styles.StatusBar}>
             <StatusBar translucent barStyle="light-content" />
         </View>
@@ -47,7 +44,6 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
             <Ionicons name="chatbubbles" style={styles.headerIkon}></Ionicons>
             <Text style={styles.blockHeaderText}>Chatrooms:</Text>
         </View> 
-
         <View style={styles.modalContainer}>
             <Modal visible={modalOpen} animationType='slide'>
                 <View style={styles.modalContent}>
@@ -64,30 +60,29 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
                     name='close-circle-outline'
                     style={{...styles.modalToggle, ...styles.modalClose}}
                     onPress={() => setModalOpen(false)}
-                                ></Ionicons>      
+                    ></Ionicons>      
                 <View>
                     <TextInput  placeholder="Chatroom name"
                         style={styles.input}
                         onChangeText={onChangeText}
                         value={text}  />
-                    <Button title='Add chatroom' onPress={() => dispatch(addChatroom(text))} />
+            <TouchableOpacity onPress={() => dispatch(addChatroom(text))} style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Add chatroom</Text>
+            </TouchableOpacity>
                 </View>
-                
                 </View> 
                 </View>
             </Modal>
         </View>
-
-        <SafeAreaView style={styles.topContainer}>
-
-            <TouchableOpacity onPress={() => dispatch(toggleOnline())} style={styles.flexEndContainer} >
-                <View style={styles.topRightContainer}>  
+        <View style={styles.topContainer}>
+            <View style={styles.flexEndContainer} >
+                <TouchableOpacity onPress={() => dispatch(toggleOnline())} style={styles.topRightContainer}>  
                     <Ionicons 
                     name={isOnline ? 'checkmark-circle' : 'close-circle'}
                     style={[styles.onlineStatus,{color: isOnline ? "green" : "red",}]}></Ionicons> 
                     <Text style={styles.onlineStatusText}>{isOnline ? "Online" : "Offline"} </Text>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
             <View style={styles.topLeftContainer}>
                 <Text style={styles.addChatTxt}>Add Chatroom</Text>
                 <Ionicons 
@@ -96,11 +91,8 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
                 style={styles.modalToggle}
                 ></Ionicons>
             </View>
-        
-        </SafeAreaView>
-
+        </View>
         <FlatList style={styles.chatroomList} data={chatrooms} renderItem={renderItem} />     
-        
     </KeyboardAvoidingView>
     );
 }

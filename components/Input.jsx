@@ -18,9 +18,8 @@ const Input = props => {
 
     return (
         <View>
-            <Text>{props.label}</Text>
+            <Text style={styles.label}>{props.label}</Text>
             <TextInput style={styles.input} value={text} onChangeText={handleChangeText} placeholder={props.placeholder} onBlur={handleOnBlur} />
-            {!props.valid && entered ? <Text>{props.error}</Text> : <></>}
         </View>
     );
 }

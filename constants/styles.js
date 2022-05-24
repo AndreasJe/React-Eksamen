@@ -1,13 +1,16 @@
-import { WHEN_UNLOCKED_THIS_DEVICE_ONLY } from "expo-secure-store";
 import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
+
 ("use strict");
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 var React = require("react-native");
 const styles = StyleSheet.create({
   mainContainer: {
-    width: "100%",
-    height: "100%",
+    minWidth: Dimensions.get("window").width,
+    minHeight: Dimensions.get("window").height,
     marginBottom: 40,
   },
   card: {
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "red",
     borderRadius: 10,
-    width: 200,
+    width: "200",
     maxWidth: "100%",
     textShadowColor: "rgba(0, 0, 0, 0.45)",
     textShadowOffset: { width: -1, height: 1 },
@@ -84,28 +87,38 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flexDirection: "row",
-    width: "100%",
+    width: Dimensions.get("window").width,
     height: 50,
     alignContent: "center",
     alignItems: "baseline",
   },
+  centerContainer: {
+    justifyContent: "center",
+    marginBottom: 20,
+    padding: 20,
+  },
   flexContainer: {
-    alignItems: "center",
+    justifyContent: "center",
     flexDirection: "row",
+    padding: 10,
+    width: Dimensions.get("window").width,
   },
   topRightContainer: {
+    minWidth: "50%",
     alignItems: "center",
+    alignSelf: "flex-start",
     flexDirection: "column",
-    justifyContent: "flex-start",
+    height: "100%",
   },
   topLeftContainer: {
-    width: "80%",
+    width: Dimensions.get("window").width / 2,
     justifyContent: "flex-end",
     alignItems: "center",
+    paddingRight: 25,
     flexDirection: "row",
   },
   addChatTxt: {
-    width: 90,
+    width: 100,
     paddingBottom: 15,
   },
   onlineStatus: {
@@ -131,8 +144,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   descriptionContainer: {
-    width: "100%",
-    height: "100%",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
     padding: 20,
     backgroundColor: "#fefefe",
     fontSize: 14,
@@ -168,9 +181,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#5050a5",
     justifyContent: "center",
     padding: 16,
-    margin: 30,
+    margin: 10,
+    marginLeft: 30,
+    marginRight: 30,
     borderRadius: 10,
     height: 60,
+  },
+  doubleButtonContainer: {
+    backgroundColor: "#5050a5",
+    borderRadius: 10,
+    padding: 20,
+    margin: 10,
+    height: 60,
+    width: Dimensions.get("window").width / 2.3,
+  },
+  divider: {
+    height: 20,
+    borderBottomWidth: 2,
+    marginBottom: 5,
+    borderColor: "#5050a5",
   },
   copy: {
     flexDirection: "row",
@@ -206,6 +235,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: "white",
   },
+  subHeader: {
+    marginTop: 15,
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 10,
+    color: "#32305d",
+  },
   header: {
     marginTop: 15,
     fontSize: 26,
@@ -226,7 +262,7 @@ const styles = StyleSheet.create({
   },
   input: {
     alignSelf: "center",
-    borderColor: "black",
+    borderColor: "#32305d",
     borderWidth: 1,
     width: "90%",
     marginLeft: 40,
@@ -236,6 +272,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 4,
     padding: 10,
+  },
+  label: {
+    fontSize: 20,
+    color: "#32305d",
+    fontWeight: "700",
+    marginLeft: 10,
   },
   shadow: {
     shadowColor: "#000000",
@@ -271,7 +313,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   chatroomList: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -279,8 +321,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
     paddingBottom: 30,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: "#f5f5f5",
   },
   modalContainer: {
@@ -288,8 +330,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   modalContent: {
-    width: "100%",
-    height: "100%",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
     alignSelf: "center",
     backgroundColor: "#f5f5f5",
   },
@@ -324,6 +366,29 @@ const styles = StyleSheet.create({
   StatusBar: {
     height: Constants.statusBarHeight,
     backgroundColor: "#32305d",
+  },
+
+  //EditProfile
+
+  avatarContainer: {
+    padding: 20,
+  },
+  userDetails: {
+    width: "60%",
+    padding: 20,
+  },
+  avatarEdit: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    margin: 10,
+    alignSelf: "center",
+  },
+  avatarDef: {
+    width: 125,
+    height: 125,
+    borderRadius: 62,
+    alignSelf: "center",
   },
 });
 

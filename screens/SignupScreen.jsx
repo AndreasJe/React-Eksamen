@@ -11,7 +11,6 @@ const SignupScreen = ({ navigation }) => {
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
 
-
     async function load() {
         let emailFromSecureStore = await SecureStore.getItemAsync('email');
         let tokenFromSecureStore = await SecureStore.getItemAsync('token');
@@ -19,16 +18,13 @@ const SignupScreen = ({ navigation }) => {
             console.log("success", emailFromSecureStore);
 
             dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
-
         } else {
             console.log("Couldn't load from the SecureStore");
         }
     }
-
      useEffect(() => {
          load(); // uncomment to read from secure store
      }, [])
-
 
     return (
     <View>
@@ -45,23 +41,19 @@ const SignupScreen = ({ navigation }) => {
         label='Email'
                 onChangeText={setEmail}
                 value={email} />
-
         <TextInput style={styles.input} placeholder='Password'
         label='Password'
         keyboardType="default"
         secureTextEntry={true}
                 onChangeText={setPassword}
                 value={password} />
-
-
-    <TouchableOpacity style={styles.buttonContainer} onPress={() => dispatch(signup(email, password, displayName))}>
-        <Text style={styles.buttonText}> Get Access</Text>
-    </TouchableOpacity>
-            
-    <TouchableOpacity style={styles.copy} onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.copyText}>Already have a user? </Text>
-        <Text style={styles.copyLink}> Log in </Text>
-    </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => dispatch(signup(email, password, displayName))}>
+            <Text style={styles.buttonText}> Get Access</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.copy} onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.copyText}>Already have a user? </Text>
+            <Text style={styles.copyLink}> Log in </Text>
+        </TouchableOpacity>
     </View>
     );
 }

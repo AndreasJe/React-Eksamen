@@ -120,10 +120,6 @@ const DiscoverScreen = ({ navigation }: { navigation: any }) => {
           /> 
         )}/>
       </View>
-
-
-
-
     );
 }
 

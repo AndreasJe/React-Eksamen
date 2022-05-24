@@ -1,12 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as SecureStore from "expo-secure-store";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
 import Chatrooms from '../screens/Chatrooms';
 import ChatroomDetails from '../screens/ChatroomDetails';
-import MenuScreen from './../screens/MenuScreen';
 import HomeScreen from './../screens/HomeScreen';
 import DiscoverScreen from './../screens/DiscoverScreen';
 import SignupScreen from './../screens/SignupScreen';
@@ -15,7 +14,7 @@ import ProfileScreen from './../screens/ProfileScreen';
 import EditProfileScreen from './../screens/EditProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import EventDetails from '../screens/EventDetailsScreen';
-import { logout, restoreUser } from '../store/actions/UserActions';
+import { logout, restoreUser, get_UserInfo } from '../store/actions/UserActions';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 
 const NavigationComponent = ({ navigation }) => {
-    const token = useSelector(state => state.user.idToken)
+    let token = useSelector(state => state.user.idToken)
 
     // Loading in user data globally
     useEffect(() => {
@@ -32,17 +31,22 @@ const NavigationComponent = ({ navigation }) => {
 
     async function loadUserData() {
         const tokenFromSecureStore = await SecureStore.getItemAsync('idToken');
-        const localIdFromSecureStore = await SecureStore.getItemAsync('localId');
-        const displayNameFromSecureStore = await SecureStore.getItemAsync('displayName');
-        const emailFromSecureStore = await SecureStore.getItemAsync('email');
-        const emailVerifiedFromSecureStore = await SecureStore.getItemAsync('emailVerified');
-        const lastLoginAtFromSecureStore = await SecureStore.getItemAsync('lastLoginAt');
-        const createdAtFromSecureStore = await SecureStore.getItemAsync('createdAt');
 
         if (tokenFromSecureStore) {
-            //Store Userdata
+            
+            dispatch(restoreUser(emailFromSecureStore, tokenFromSecureStore));
+            get_UserInfo(tokenFromSecureStore);
+            const localIdFromSecureStore = await SecureStore.getItemAsync('localId');
+            const displayNameFromSecureStore = await SecureStore.getItemAsync('displayName');
+            const emailFromSecureStore = await SecureStore.getItemAsync('email');
+            const emailVerifiedFromSecureStore = await SecureStore.getItemAsync('emailVerified');
+            const lastLoginAtFromSecureStore = await SecureStore.getItemAsync('lastLoginAt');
+            const createdAtFromSecureStore = await SecureStore.getItemAsync('createdAt');
+
+
+
         } else {
-            useDispatch(logout)
+            useDispatch(logout())
         }
 
     }

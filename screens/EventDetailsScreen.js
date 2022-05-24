@@ -7,7 +7,7 @@ import {
   Button,
   ImageBackground,
 } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import styles from "../constants/styles";
 
 export default function EventDetails({ navigation, route }) {
@@ -47,9 +47,11 @@ export default function EventDetails({ navigation, route }) {
       </View>
 
       <View style={styles.descriptionContainer}>
-        <Text style={styles.description}> {route.params?.description} </Text>
+        <Text style={styles.description}> {route.params?.description}</Text>
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={styles.buttonText}> Follow</Text>
+        </TouchableOpacity>
       </View>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 }
