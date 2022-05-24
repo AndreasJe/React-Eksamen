@@ -2,20 +2,24 @@ import { LOGOUT, LOGIN, RESTORE_USER, SIGNUP, DELETE_USER, EDIT_PROFILE } from "
 
 
 export interface UserState {
+    isOnline: boolean | false
     localId: string
     displayName: string | undefined
-    idToken: string | undefined;
+    idToken: undefined | undefined
     email: string | undefined
     emailVerified: boolean | false
     password: string | undefined
+    tokenFromSecureStore: string | undefined 
 }
 
 const initialState: UserState = {
+    isOnline: false,
     localId: '',
     displayName: 'Default Username from the state',
     idToken: undefined,
     email: 'state@redux.com',
     emailVerified: false,
+    tokenFromSecureStore: '',
     password: '',
 };
 
@@ -38,7 +42,7 @@ const userReducer = (state: UserState = initialState, action: Action) => {
         case DELETE_USER:
             return { ...state, idToken: action.payload.idToken }
         case EDIT_PROFILE:
-            return { ...state, idToken: action.payload.idToken, displayName: action.payload.string, photoUrl: action.payload.string }
+            return { ...state, idToken: action.payload.idToken, displayName: action.payload.string, email: action.payload.string }
 
         default:
             return state; //does not do anything yet​   

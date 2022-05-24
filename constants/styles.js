@@ -1,10 +1,13 @@
 import { WHEN_UNLOCKED_THIS_DEVICE_ONLY } from "expo-secure-store";
+import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
 ("use strict");
 
 var React = require("react-native");
 const styles = StyleSheet.create({
   mainContainer: {
+    width: "100%",
+    height: "100%",
     marginBottom: 40,
   },
   card: {
@@ -79,10 +82,47 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.2)",
   },
+  topContainer: {
+    flexDirection: "row",
+    width: "100%",
+    height: 50,
+    alignContent: "center",
+    alignItems: "baseline",
+  },
   flexContainer: {
     alignItems: "center",
     flexDirection: "row",
   },
+  topRightContainer: {
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+  },
+  topLeftContainer: {
+    width: "80%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  addChatTxt: {
+    width: 90,
+    paddingBottom: 15,
+  },
+  onlineStatus: {
+    marginLeft: 5,
+    fontSize: 50,
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+  },
+  onlineStatusText: {
+    fontSize: 10,
+    marginTop: -60,
+    fontWeight: "700",
+    textAlign: "center",
+    color: "#5050a5",
+  },
+
   flexColorContainer: {
     flexDirection: "row",
     backgroundColor: "#5050a5",
@@ -136,6 +176,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
   },
+  copyContainer: {
+    padding: 20,
+    backgroundColor: "white",
+    margin: 40,
+    borderRadius: 10,
+  },
   copyText: {
     color: "#5050a5",
     fontSize: 16,
@@ -171,19 +217,23 @@ const styles = StyleSheet.create({
   },
   blockHeader: {
     fontWeight: "700",
+    height: 80,
+    paddingTop: 20,
     backgroundColor: "#32305d",
     padding: 20,
+    paddingLeft: 0,
     flexDirection: "row",
   },
   input: {
     alignSelf: "center",
-    borderColor: "#00000070",
+    borderColor: "black",
     borderWidth: 1,
     width: "90%",
     marginLeft: 40,
     marginRight: 40,
     margin: 0,
     height: 60,
+    fontSize: 20,
     borderRadius: 4,
     padding: 10,
   },
@@ -197,23 +247,31 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  onlineStatus: {
-    marginLeft: 5,
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-  },
   chatroomText: {
     width: "80%",
+    fontSize: 16,
+    fontWeight: "700",
+    color: "white",
   },
   chatroomButton: {
     width: "20%",
   },
+  chatDeleteIcon: {
+    color: "white",
+    fontSize: 26,
+    alignSelf: "flex-end",
+  },
   chatroomItem: {
     flexDirection: "row",
-    padding: 5,
+    padding: 15,
+    backgroundColor: "#5050a5",
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "black",
+    marginTop: 5,
   },
   chatroomList: {
+    width: "100%",
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -225,22 +283,48 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     backgroundColor: "#f5f5f5",
   },
-  onlineContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-
-  modalContent: {},
-  modalContainer: {},
-  modalToggle: {
-    marginBottom: 10,
-    borderWidth: 2,
-    borderColor: "#f2f2f2",
+  modalContainer: {
     padding: 10,
-    borderRadius: 10,
     alignSelf: "center",
   },
-  modalClose: {},
+  modalContent: {
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+    backgroundColor: "#f5f5f5",
+  },
+  modalInnerContent: {
+    padding: 10,
+  },
+  modalToggle: {
+    fontSize: 30,
+    borderColor: "#f2f2f2",
+    height: 50,
+    borderRadius: 10,
+    alignSelf: "flex-end",
+  },
+  modalClose: {
+    fontSize: 30,
+    alignSelf: "flex-end",
+  },
+  formikContainer: {
+    padding: 10,
+    flex: 1,
+  },
+  formContainers: {
+    padding: 10,
+    flex: 1,
+  },
+  formInput: {
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: "white",
+  },
+
+  StatusBar: {
+    height: Constants.statusBarHeight,
+    backgroundColor: "#32305d",
+  },
 });
 
 export default styles;

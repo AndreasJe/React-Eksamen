@@ -1,24 +1,15 @@
 import { Alert } from "react-native";
 import { Chatroom } from "../../entities/Chatroom";
 
-
-export const TOGGLE_ONLINE = 'TOGGLE_ONLINE';
-export const ADD = 'ADD';
-export const SUBTRACT = 'SUBTRACT';
 export const ADD_CHATROOM = 'ADD_CHATROOM';
+export const TOGGLE_ONLINE = 'TOGGLE_ONLINE';
 export const DELETE_CHATROOM = 'DELETE_CHATROOM';
 export const FETCH_CHATROOMS = 'FETCH_CHATROOMS';
 
-export const toggleOnline = () => {
+
+export const toggleOnline = (isOnline:boolean) => {
+    console.log(isOnline)
     return { type: TOGGLE_ONLINE };
-};
-
-export const add = () => {
-    return { type: ADD };
-};
-
-export const subtract = () => {
-    return { type: SUBTRACT };
 };
 
 export const fetchChatrooms = () => {
@@ -37,14 +28,11 @@ export const fetchChatrooms = () => {
 
 
         const data = await response.json(); // json to javascript
-        console.log(data);
         if (!response.ok) {
             Alert.alert(
               "Something went wrong!",
-              "App couldn't fetch chatrooms. Contact the administrator or try again later",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
-              ]
+              "Couldn't fetch chatrooms. Try to logout and in again.",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             );
         } else {
 
@@ -78,17 +66,12 @@ export const addChatroom = (chatroomName: string) => {
                 chatroomName
             })
         });
-
-
         const data = await response.json(); // json to javascript
-        console.log(data);
         if (!response.ok) {
             Alert.alert(
               "Something went wrong!",
-              "Logout and back in. Make sure to input a name for your chatroom",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
-              ]
+              "Chatroom could not be added. Contact the administrator",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             );
         } else {
             dispatch({ type: ADD_CHATROOM, payload: { chatroomName, id: data.name } })
@@ -116,10 +99,8 @@ export const deleteChatroom = (id: string) => {
         if (!response.ok) {
             Alert.alert(
               "Something went wrong!",
-              "There was a problem deleting the chatroom",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") },
-              ]
+              "Chatroom was not deleted. Try again later",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             );
         } else {
             dispatch({ type: DELETE_CHATROOM, payload: id })

@@ -1,6 +1,7 @@
 import {
   StyleSheet,
   Text,
+  StatusBar,
   View,
   TouchableOpacity,
   Image,
@@ -12,12 +13,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../constants/styles";
 import Input from "../components/Input";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const defaultImage = require("../assets/defaultImage.png");
 
 const EditProfileScreen = ({ navigation }) => {
   const username = useSelector((state) => state.user.username);
   const [validUsername, setValidUsername] = useState(username !== "");
+  const imgUrl = useSelector((state) => state.user.imgUrl);
+  const [validIMGurl, setValidIMGurl] = useState(username !== "");
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
 
@@ -44,6 +48,14 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <KeyboardAwareScrollView>
+      <View style={styles.StatusBar}>
+        <StatusBar translucent barStyle="light-content" />
+      </View>
+      <View style={styles.blockHeader}>
+        <Ionicons name="calendar" style={styles.headerIkon}></Ionicons>
+        <Text style={styles.blockHeaderText}>Upcoming events:</Text>
+      </View>
+
       <Button
         title="Go back to Profile"
         onPress={() => navigation.navigate("Profile")}

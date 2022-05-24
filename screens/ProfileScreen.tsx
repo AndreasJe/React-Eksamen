@@ -1,10 +1,11 @@
-import { StyleSheet, View, Text, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet,StatusBar, View, Text, Button, TouchableOpacity, Image } from 'react-native';
 import { useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import { logout, delete_user, get_UserInfo } from '../store/actions/UserActions';
 import * as SecureStore from "expo-secure-store";
 import React from 'react';
 import styles from "../constants/styles";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { RootState } from '../App';
 const defaultImage = require("../assets/defaultImage.png");
 
@@ -47,6 +48,17 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
     return (
         <View>
+
+
+          <View style={styles.StatusBar}>
+                      <StatusBar translucent barStyle="light-content" />
+                  </View>
+          <View style={styles.blockHeader}>
+         <Ionicons name="calendar" style={styles.headerIkon}></Ionicons>
+          <Text style={styles.blockHeaderText}>Upcoming events:</Text>
+          </View> 
+
+
           <Button title="Edit Profile" onPress={() => navigation.navigate('EditProfile')} />
             <Text style={styles.header}>Profile:</Text>
             <Text>Hello, {user.displayName}</Text>

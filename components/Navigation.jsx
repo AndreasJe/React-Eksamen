@@ -2,10 +2,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
-import ChatScreen1 from './../screens/ChatScreen1';
-import ChatScreen2 from './../screens/ChatScreen2';
-import ChatScreen3 from './../screens/ChatScreen3';
+import Chatrooms from '../screens/Chatrooms';
+import ChatroomDetails from '../screens/ChatroomDetails';
 import MenuScreen from './../screens/MenuScreen';
 import HomeScreen from './../screens/HomeScreen';
 import DiscoverScreen from './../screens/DiscoverScreen';
@@ -14,8 +14,8 @@ import LoginScreen from './../screens/LoginScreen';
 import ProfileScreen from './../screens/ProfileScreen';
 import EditProfileScreen from './../screens/EditProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import EventDetails from '../screens/EventDetailsScreen';
+import { logout, restoreUser } from '../store/actions/UserActions';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +25,27 @@ const Tab = createBottomTabNavigator();
 const NavigationComponent = ({ navigation }) => {
     const token = useSelector(state => state.user.idToken)
 
+    // Loading in user data globally
+    useEffect(() => {
+        loadUserData();
+    }, []);
+
+    async function loadUserData() {
+        const tokenFromSecureStore = await SecureStore.getItemAsync('idToken');
+        const localIdFromSecureStore = await SecureStore.getItemAsync('localId');
+        const displayNameFromSecureStore = await SecureStore.getItemAsync('displayName');
+        const emailFromSecureStore = await SecureStore.getItemAsync('email');
+        const emailVerifiedFromSecureStore = await SecureStore.getItemAsync('emailVerified');
+        const lastLoginAtFromSecureStore = await SecureStore.getItemAsync('lastLoginAt');
+        const createdAtFromSecureStore = await SecureStore.getItemAsync('createdAt');
+
+        if (tokenFromSecureStore) {
+            //Store Userdata
+        } else {
+            useDispatch(logout)
+        }
+
+    }
     return (
         <NavigationContainer >
             {token !== undefined ? (
@@ -57,17 +78,19 @@ const NavigationComponent = ({ navigation }) => {
                     name='Home' 
                     component={HomeScreen} 
                     options={{ 
+                        headerShown:false, 
                         tabBarIcon: ({ focused }) => (
                         <Ionicons
                             name='home-sharp'
                             style={{ color: focused ? '#5050a5' : '#b7b7b7', fontSize: 25 }}
                         ></Ionicons>
-                        ),
-                    }}/>
+                        )
+                    } }/>
                     <Tab.Screen 
                     name='Discover' 
                     component={EventStack} 
                     options={{
+                        headerShown:false, 
                         tabBarIcon: ({ focused }) => (
                         <Ionicons
                             name='search-outline'
@@ -79,6 +102,7 @@ const NavigationComponent = ({ navigation }) => {
                     name='Chat' 
                     component={ChatStack} 
                     options={{
+                        headerShown:false, 
                         tabBarIcon: ({ focused }) => (
                         <Ionicons
                             name='chatbubbles-outline'
@@ -90,7 +114,9 @@ const NavigationComponent = ({ navigation }) => {
                     name='Menu' 
                     component={MenuStack} 
                     options={{
-                        tabBarIcon: ({ focused }) => (
+                    headerShown:false,                        
+                    tabBarIcon: 
+                        ({ focused }) => (
                         <Ionicons
                             name='menu-outline'
                             style={{ color: focused ? '#5050a5' : '#b7b7b7', fontSize: 25}}
@@ -133,9 +159,9 @@ function EventStack() {
 function ChatStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Screen1' component={ChatScreen1}  options={{ headerShown: false }} />
-            <Stack.Screen name='Screen2' component={ChatScreen2}  />
-            <Stack.Screen name='AndreScreen' component={ChatScreen3}   />
+            <Stack.Screen name='Chatrooms' component={Chatrooms}  options={{ headerShown: false }} />
+            <Stack.Screen name='ChatroomDetails' component={ChatroomDetails}  options={({ route }) => ({ title: route.params.chatroomName })}/>
+            
         </Stack.Navigator>
     );
 }

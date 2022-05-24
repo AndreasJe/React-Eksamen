@@ -1,10 +1,11 @@
-import { Button, FlatList, StyleSheet, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, StatusBar, StyleSheet, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../App';
 import Input from '../components/Input';
 import { useEffect, useState } from 'react';
 import Event from '../components/Event';
 import styles from "../constants/styles";
+import Constants from 'expo-constants';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { fetchEvents, addEvent } from '../store/actions/EventActions';
 
@@ -78,33 +79,47 @@ const DiscoverScreen = ({ navigation }: { navigation: any }) => {
   description: 'Kom til fest, og få en hest. Spare ribs turducken chuck meatball. Chislic salami capicola, turducken alcatra ribeye ground round shank fatback. Tongue corned beef cupim buffalo pork loin. Capicola shankle boudin, pig shank ground round tongue ham pork sirloin chuck picanha landjaeger porchetta brisket.',
   key: '6',
 },
+{  
+  title: 'CBS Film presents: Everything Everywhere - All at Once ',
+  imgUrl: 'https://i.guim.co.uk/img/media/153d94f8afe195de7a5c1370ef875f7e0b33f6f8/0_0_3504_2336/master/3504.jpg?width=1020&quality=85&auto=format&fit=max&s=a93c3e3a4b9aa7d98fce019b81e2c60c',
+  group: 'CBS Film',
+  timeStart: '00:00',
+  timeEnd: '06:00',
+  dateStart: 'Onsdag 25 APR',
+  location: 'Frederiksberg',
+  description: 'Kom til fest, og få en hest. Spare ribs turducken chuck meatball. Chislic salami capicola, turducken alcatra ribeye ground round shank fatback. Tongue corned beef cupim buffalo pork loin. Capicola shankle boudin, pig shank ground round tongue ham pork sirloin chuck picanha landjaeger porchetta brisket.',
+  key: '7',
+},
   ]
   )
     return (
-        <View style={styles.mainContainer}>     
-          <View style={styles.blockHeader}>
-         <Ionicons name="calendar" style={styles.headerIkon}></Ionicons>
-          <Text style={styles.blockHeaderText}>Upcoming events:</Text>
-          </View> 
-       <FlatList  
-       style={styles.eventList} 
-       data={events} 
-       renderItem={({item}) => (
-        <Event
-        redirect={() =>
-          navigation.navigate('EventDetails',item)
-          }
-        title={item.title}
-        group={item.group}
-        description={item.description}
-        timeStart={item.timeStart}
-        timeEnd={item.timeEnd}
-        location={item.location}
-        dateStart={item.dateStart}
-        imgUrl={item.imgUrl}
-        /> 
-       )} />
-       </View>
+      <View style={styles.mainContainer}>
+        <View style={styles.StatusBar}>
+          <StatusBar translucent barStyle="light-content" />
+        </View>
+        <View style={styles.blockHeader}>
+          <Ionicons name="search" style={styles.headerIkon}></Ionicons>
+            <Text style={styles.blockHeaderText}>Upcoming Events:</Text>
+        </View> 
+        <FlatList  
+        style={styles.eventList} 
+        data={events} 
+        renderItem={({item}) => (
+          <Event
+          redirect={() =>
+            navigation.navigate('EventDetails',item)
+            }
+          title={item.title}
+          group={item.group}
+          description={item.description}
+          timeStart={item.timeStart}
+          timeEnd={item.timeEnd}
+          location={item.location}
+          dateStart={item.dateStart}
+          imgUrl={item.imgUrl}
+          /> 
+        )}/>
+      </View>
 
 
 
