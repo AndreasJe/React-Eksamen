@@ -29,23 +29,6 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   }
 
 
-  async function fetchUserInfo() {
-    let tokenFromSecureStore = await SecureStore.getItemAsync("token");
-    if (tokenFromSecureStore) {
-      console.log("User data has been fetched");
-
-      dispatch(get_UserInfo(tokenFromSecureStore));
-    } else {
-      console.log("Couldn't load tokenID from the SecureStore");
-    }
-  }
-
-  useEffect(() => {
-    fetchUserInfo(); // uncomment to read from secure store
-  }, []);
-
-    
-
     return (
         <View>
 
