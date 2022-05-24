@@ -17,14 +17,6 @@ Download project and run the following commands in root to install dependencies 
   expo start
 ```
 
-## Potential Future Features
-
-- User State Management 
-- Chat message functionality
-- Firestore setup for image upload
-- Form components implementation.
-
-
 ## Roadmap
 
 - User State Management 
