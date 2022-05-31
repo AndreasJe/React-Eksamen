@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "130794024310",
+    "firebase_url": "https://react-first-41bb5-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "react-first-41bb5",
+    "storage_bucket": "react-first-41bb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130794024310:android:f28f6065ecbd9b7218de57",
+        "android_client_info": {
+          "package_name": "CBS.WebApp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130794024310-a5p12h6a0nd31vo1l8tio8d3l6il9an8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrXoCPv8Jj8kN_DC5nDOJ02C4HyKTwSeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130794024310-a5p12h6a0nd31vo1l8tio8d3l6il9an8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "130794024310-53cpbb7fdhr5eo2noslpagr0igmm1i0e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mandaffaaord.cbswebapp",
+                "app_store_id": "12313213"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
