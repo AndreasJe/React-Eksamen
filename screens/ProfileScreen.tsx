@@ -13,6 +13,7 @@ const defaultImage = require("../assets/defaultImage.png");
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user)
+  const chat = useSelector((state: RootState) => state.chat)
 
 
 
@@ -41,8 +42,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
         <View style={styles.flexContainer}>
         <View style={styles.userDetails}>
-          <Text style={styles.subHeader}>Hello, + {user.displayName} </Text>
-          <Text>{user.displayName}</Text>
+          <Text style={styles.subHeader}>Hello, {user.displayName} </Text>
           <Text style={styles.copyText}>Here is your profile information. If you want to change it or escape our hold, follow the options below.</Text>
         <View></View>
         </View>
@@ -62,11 +62,15 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
         <Text style={styles.type}>IdToken:</Text><Text  style={styles.value}>{user.idToken}</Text>
         </View>
         <View style={styles.userDetailsStore}>
-        <Text style={styles.type}>isOnline:</Text><Text  style={styles.value}>{user.displayName}</Text>
+        <Text style={styles.type}>Email:</Text><Text  style={styles.value}>{user.email}</Text>
         </View>
         <View style={styles.userDetailsStore}>
-        <Text style={styles.type}>DisplayName:</Text><Text  style={styles.value}>{user.displayName}</Text>
+        <Text style={styles.type}>LocalID:</Text><Text  style={styles.value}>{user.localId}</Text>
         </View>
+        <View style={styles.userDetailsStore}>
+        <Text style={styles.type}>CreatedAt:</Text><Text  style={styles.value}>{user.createdAt}</Text>
+        </View>
+     
 
         <View style= {{justifyContent:'flex-end'}}>
           <TouchableOpacity

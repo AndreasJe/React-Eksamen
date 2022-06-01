@@ -23,9 +23,8 @@ import firestore from '@react-native-firebase/firestore';
 
 
 const EditProfileScreen = ({ navigation }: { navigation: any }) => {
-  const user = useSelector((state: RootState) => state.user);
-  const [username, setUsername] = "";
-  const [validUsername, setValidUsername] = useState(username !== "");
+  const [displayName, setdisplayName] = useState('')
+  const [validdisplayName, setValiddisplayName] = useState(displayName !== "");
   const dispatch = useDispatch()
 
   useEffect(() => { 
@@ -40,19 +39,9 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
     })();
   }, []);
 
-
-  async function save() {
-  try {
-    dispatch(edit_name(username))
-  } catch {
-    Alert.alert(
-      "Something went wrong!",
-      "Contact the system administrator",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-    ) 
-  } finally {
-    navigation.navigate('Profile');
-  }
+  function save() {
+    console.log(displayName)
+    dispatch(edit_name(displayName))
   }
 
   const pickImage = async () => {
@@ -87,13 +76,12 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
         <View style={styles.centerContainer}>
           <Input
             label="Username"
-            inputValue={username}
             error="Username cannot be empty."
-            valid={validUsername}
-            setValid={setValidUsername}
+            valid={validdisplayName}
+            setValid={setValiddisplayName}
             placeholder="E.g John D"
-            text={username}
-            setText={setUsername}
+            text={displayName}
+            setText={setdisplayName}
           />
 
           <View style={styles.flexContainer}>

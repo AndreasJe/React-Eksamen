@@ -36,19 +36,9 @@ const userReducer = (state = initialState, action: Action) => {
         ...state,
         idToken: action.payload.idToken,
         email: action.payload.email,
-        displayName: action.payload.string,
-        localId: action.payload.string,
-        refreshToken: action.payload.string,
-      };
-      
-    case RESTORE_USER:
-      return {
-        ...state,
-        idToken: action.payload.idToken,
-        localId: action.payload.localId,
-        email: action.payload.email,
         displayName: action.payload.displayName,
-        refreshToken: action.payload.string,
+        localId: action.payload.localId,
+        refreshToken: action.payload.refreshToken,
       };
 
     case LOGOUT:
@@ -62,16 +52,27 @@ const userReducer = (state = initialState, action: Action) => {
         localId: undefined,
         refreshToken: undefined,
       };
+      
+    case RESTORE_USER:
+      return {
+        ...state,
+        idToken: action.payload.idToken,
+        localId: action.payload.localId,
+        email: action.payload.email,
+        displayName: action.payload.displayName,
+        createdAt: action.payload.createdAt,
+        refreshToken: action.payload.refreshToken,
+      };
 
     case LOGIN:
       return {
         ...state,
         idToken: action.payload.idToken,
-        localId: action.payload.string,
+        localId: action.payload.localId,
         email: action.payload.email,
-        displayName: action.payload.string,
-        createdAt: action.payload.string,
-        refreshToken: action.payload.string,
+        displayName: action.payload.displayName,
+        createdAt: action.payload.createdAt,
+        refreshToken: action.payload.refreshToken,
       };
 
     case DELETE_USER:
@@ -84,10 +85,10 @@ const userReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         idToken: action.payload.idToken,
-        displayName: action.payload.string,
-        eduProgram: action.payload.string,
-        firstName: action.payload.string,
-        lastName: action.payload.string,
+        displayName: action.payload.displayName,
+        eduProgram: action.payload.eduProgram,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
       };
 
     case EDIT_NAME:
@@ -95,7 +96,7 @@ const userReducer = (state = initialState, action: Action) => {
         ...state, 
         idToken: undefined,
         localId: undefined,
-        displayName: action.payload.string, };
+        displayName: action.payload.displayName, };
 
     default:
       return state;

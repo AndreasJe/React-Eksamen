@@ -26,8 +26,8 @@ export const logout = () => {
   return { type: LOGOUT };
 };
 
-export const restoreUser = (email: any, idToken:any) => {
-  return { type: RESTORE_USER, payload: { email, idToken: idToken } };
+export const restoreUser = ( idToken:any, localId:any, email: any, displayName:any, createdAt:any, refreshToken:any,) => {
+  return { type: RESTORE_USER, payload: { email: email,  idToken: idToken, localId: localId, displayName:displayName, createdAt:createdAt, refreshToken:refreshToken  } };
 };
 
 // Delete User script
@@ -137,13 +137,13 @@ export const login = (email: undefined, password: undefined) => {
         await SecureStore.setItemAsync("refreshToken", data.refreshToken);
         dispatch({
           type: LOGIN,
-          payload: { email: data.email, idToken: data.idToken, displayName: data.displayName, refreshToken: data.refreshToken },
+          payload: { idToken: data.idToken, localId: data.localId, email: data.email, displayName: data.displayName, createdAt: data.createdAt, refreshToken: data.refreshToken },
         });
       }
     };
   };
 
-// Update User script
+// Setup User script
 export const setup_profile = (displayName: string, eduProgram: string, firstName: string, lastName: string) => {
   return async (dispatch: any, getState: any) => {
     const idToken = getState().user.idToken
@@ -227,12 +227,12 @@ export const get_UserInfo = () => {
       dispatch({
         type: GET_USERINFO,
         payload: {
-          displayName: data.users[0].displayName,
-          localId: data.users[0].localId,
-          email: data.users[0].email,
-          emailVerified: data.users[0].emailVerified,
-          lastLoginAt: data.users[0].lastLoginAt,
-          createdAt: data.users[0].createdAt,
+          displayName: data.user.displayName,
+          localId: data.user.localId,
+          email: data.user.email,
+          emailVerified: data.user.emailVerified,
+          lastLoginAt: data.user.lastLoginAt,
+          createdAt: data.user.createdAt,
         },
       });
     }
@@ -252,9 +252,7 @@ export const edit_name = ( displayName: string) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          idToken: idToken,
-          displayName: displayName,
-          localId: localId,
+          displayName,
         }),
       }
     );
