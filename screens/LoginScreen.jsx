@@ -11,33 +11,33 @@ const LoginScreen = ({ navigation }) => {
 
     return (
     <View>
-            <Image
-            style={styles.logo}
-            source={require('../assets/icon.png')}
-            />
-            <Text style={styles.header}>Login</Text>
-            <TextInput 
-                style={styles.input} 
-                placeholder='Email' 
-                label='Email'
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                value={email} />
-            <TextInput style={styles.input} 
-                placeholder='Password'
-                keyboardType="default"
-                secureTextEntry={true}
-                onChangeText={setPassword}
-                value={password} />
-            <TouchableOpacity style={styles.buttonContainer} 
-                onPress={() => dispatch(login(email, password))}>
-                <Text style={styles.buttonText}> Log in</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.copy} 
-                onPress={() => navigation.navigate("Signup")}>
-                <Text style={styles.copyText}>Don't have a user? </Text>
-                <Text style={styles.copyLink}> Sign up </Text>
-            </TouchableOpacity> 
+        <Image
+        style={styles.logo}
+        source={require('../assets/icon.png')}
+        />
+        <Text style={styles.header}>Login</Text>
+        <TextInput 
+            style={styles.input} 
+            placeholder='Email' 
+            label='Email'
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            value={email} />
+        <TextInput style={styles.input} 
+            placeholder='Password'
+            keyboardType="default"
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password} />
+        <TouchableOpacity style={styles.buttonContainer} 
+            onPress={() => dispatch(login(email, password))}>
+            <Text style={styles.buttonText}> Log in</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.copy} 
+            onPress={() => navigation.navigate("Signup")}>
+            <Text style={styles.copyText}>Don't have a user? </Text>
+            <Text style={styles.copyLink}> Sign up </Text>
+        </TouchableOpacity> 
     </View>
     );
 }
