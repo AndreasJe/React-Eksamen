@@ -18,7 +18,7 @@ export interface Action {
   chatroomName: string | undefined;
   type: any | undefined;
   payload: any | undefined;
-  id: string | undefined
+  id: string | undefined;
 }
 const chatReducer = (state = initialState, action: Action) => {
   switch (action.type) {
