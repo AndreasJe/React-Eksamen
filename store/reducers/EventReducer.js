@@ -22,4 +22,4 @@ const eventReducer = (state = initialState, action) => {
   }
 };
 
-export default chatReducer;
+export default eventReducer;
