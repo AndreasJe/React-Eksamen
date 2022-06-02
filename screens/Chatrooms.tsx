@@ -55,7 +55,6 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
                     <Text style={styles.blockHeaderText}>Upcoming events:</Text>
                 </View>
                 <View style={styles.modalInnerContent}>
-                    <Text>Modal Open</Text>
                     <Ionicons 
                     name="close-circle-outline"
                     style={{...styles.modalToggle, ...styles.modalClose}}
@@ -66,7 +65,7 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
                         style={styles.input}
                         onChangeText={onChangeText}
                         value={text}  />
-            <TouchableOpacity onPress={() => dispatch(addChatroom(text))} style={styles.buttonContainer}>
+            <TouchableOpacity onPress={() => { dispatch(addChatroom(text)); setModalOpen(false);}} style={styles.buttonContainer}>
               <Text style={styles.buttonText}>Add chatroom</Text>
             </TouchableOpacity>
                 </View>
@@ -76,7 +75,7 @@ const Chatrooms = ({ navigation }: { navigation: any }) => {
         </View>
         <View style={styles.topContainer}>
             <View >
-                <TouchableOpacity onPress={() => dispatch(toggleOnline())} style={styles.topRightContainer}>  
+                <TouchableOpacity onPress={() =>  dispatch(toggleOnline())} style={styles.topRightContainer}>  
                     <Ionicons 
                     name={isOnline ? 'checkmark-circle' : 'close-circle'}
                     style={[styles.onlineStatus,{color: isOnline ? "green" : "red",}]}></Ionicons> 

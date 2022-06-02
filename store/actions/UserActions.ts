@@ -26,14 +26,15 @@ export const logout = () => {
   return { type: LOGOUT };
 };
 
-export const restoreUser = ( idToken:any, localId:any, email: any, displayName:any, createdAt:any, refreshToken:any,) => {
-  return { type: RESTORE_USER, payload: { email: email,  idToken: idToken, localId: localId, displayName:displayName, createdAt:createdAt, refreshToken:refreshToken  } };
+export const restoreUser = ( idToken:any, localId:any, email: any, displayName:any, refreshToken:any,) => {
+  return { type: RESTORE_USER, payload: { idToken: idToken, localId: localId, email: email, displayName:displayName, refreshToken:refreshToken  } };
 };
 
 // Delete User script
 export const delete_user = (idToken: undefined) => {
   return async (dispatch: any, getState: any) => {
-    const idToken = getState().user.idToken
+    const displayName = getState().user.displayName
+    let idToken = await SecureStore.getItemAsync('idToken');
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc",
       {
@@ -43,6 +44,7 @@ export const delete_user = (idToken: undefined) => {
         },
         body: JSON.stringify({
           idToken: idToken,
+          displayName: displayName,
         }),
       }
     );
@@ -57,7 +59,7 @@ export const delete_user = (idToken: undefined) => {
       await SecureStore.setItemAsync("idToken", data.idToken);
       dispatch({
         type: DELETE_USER,
-        payload: { idToken: data.idToken },
+        payload: { idToken: data.idToken, displayName: displayName, },
       });
     }
   };
@@ -94,10 +96,11 @@ export const signup = (email: undefined, password: undefined, displayName: strin
       await SecureStore.setItemAsync("email", data.email);
       await SecureStore.setItemAsync("idToken", data.idToken);
       await SecureStore.setItemAsync("localId", data.localId);
+      await SecureStore.setItemAsync("displayName", data.displayName);
       await SecureStore.setItemAsync("refreshToken", data.refreshToken);
       dispatch({
         type: SIGNUP,
-        payload: { email: data.email, idToken: data.idToken, localId: data.localId, refreshToken: data.refreshToken },
+        payload: { idToken: data.idToken, localId: data.localId, email: data.email, displayName: data.displayName, createdAt: data.createdAt, refreshToken: data.refreshToken },
       });
     }
   };
@@ -132,7 +135,6 @@ export const login = (email: undefined, password: undefined) => {
     } else {
         await SecureStore.setItemAsync("email", data.email);
         await SecureStore.setItemAsync("idToken", data.idToken);
-        await SecureStore.setItemAsync("displayName", data.displayName);
         await SecureStore.setItemAsync("localId", data.localId);
         await SecureStore.setItemAsync("refreshToken", data.refreshToken);
         dispatch({
@@ -246,18 +248,19 @@ export const edit_name = ( displayName: string) => {
     console.log(localId)
     const idToken = await SecureStore.getItemAsync('idToken')
     const response = await fetch(
-      `https://react-first-41bb5-default-rtdb.europe-west1.firebasedatabase.app/userData/${localId}.json?auth=${idToken}`, {
-        method: 'PUT',
+      `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDAqWRKUJZlh1-T8bUJVmaqW-E8chcZywc`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          displayName,
+          idToken: idToken,
+          displayName: displayName,
         }),
       }
     );
 
-    const data = await response.json();
+    const data = await response.text();
     console.log(data);
     if (!response.ok) {
       Alert.alert(
@@ -272,7 +275,6 @@ export const edit_name = ( displayName: string) => {
         payload: {  
           displayName: displayName,
           idToken: idToken,
-          localId: localId,
       }})
     }
   };

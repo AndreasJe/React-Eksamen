@@ -23,7 +23,7 @@ import firestore from '@react-native-firebase/firestore';
 
 
 const EditProfileScreen = ({ navigation }: { navigation: any }) => {
-  const [displayName, setdisplayName] = useState('')
+  const displayName = useSelector((state : RootState) => state.user.displayName);
   const [validdisplayName, setValiddisplayName] = useState(displayName !== "");
   const dispatch = useDispatch()
 
@@ -39,7 +39,7 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
     })();
   }, []);
 
-  function save() {
+  const save = () => {
     console.log(displayName)
     dispatch(edit_name(displayName))
   }
@@ -75,13 +75,12 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
       <View style={styles.flexContainer}>
         <View style={styles.centerContainer}>
           <Input
-            label="Username"
+            label="FullName"
             error="Username cannot be empty."
             valid={validdisplayName}
             setValid={setValiddisplayName}
             placeholder="E.g John D"
-            text={displayName}
-            setText={setdisplayName}
+            inputValue={displayName}
           />
 
           <View style={styles.flexContainer}>

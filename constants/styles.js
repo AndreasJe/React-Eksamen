@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
   },
   value: {
-    marginLeft: 30,
-    marginRight: 30,
     alignSelf: "flex-end",
+    flexDirection: "column",
+    width: Dimensions.get("window").width / 2,
     justifyContent: "flex-end",
     fontSize: 12,
     fontStyle: "italic",
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   type: {
     marginLeft: 30,
     marginRight: 30,
+    width: 130,
     alignSelf: "flex-start",
     justifyContent: "flex-start",
     fontSize: 17,
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   valid: {
-    backgroundColor: "#5050a5",
+    backgroundColor: "green",
     justifyContent: "center",
     borderRadius: 10,
     padding: 20,
@@ -227,14 +228,32 @@ const styles = StyleSheet.create({
     height: 60,
     width: Dimensions.get("window").width / 2.3,
   },
+  validToken: {
+    color: "green",
+    justifyContent: "center",
+    width: 30,
+    fontSize: 30,
+    marginTop: -5,
+    margin: 10,
+    height: 30,
+  },
   invalid: {
-    backgroundColor: "#5050a5",
+    backgroundColor: "red",
     justifyContent: "center",
     borderRadius: 10,
     padding: 20,
     margin: 10,
     height: 60,
     width: Dimensions.get("window").width / 2.3,
+  },
+  invalidToken: {
+    color: "red",
+    fontSize: 30,
+    justifyContent: "center",
+    width: 30,
+    margin: 10,
+    marginTop: -5,
+    height: 30,
   },
   doubleButtonContainer: {
     backgroundColor: "#5050a5",
@@ -446,13 +465,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   userDetails: {
-    width: "65%",
+    width: Dimensions.get("window").width / 1.5,
     padding: 20,
   },
   userDetailsStore: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     padding: 20,
+    flexDirection: "row",
   },
+
   avatarEdit: {
     width: 150,
     height: 150,

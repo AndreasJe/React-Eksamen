@@ -40,9 +40,9 @@ const NavigationComponent = ({ navigation }) => {
         let refreshTokenFromSecureStore = await SecureStore.getItemAsync('refreshToken');
         let localIdFromSecureStore = await SecureStore.getItemAsync('localId');
         let displayNameFromSecureStore = await SecureStore.getItemAsync('displayName');
-        if (tokenFromSecureStore,emailFromSecureStore ) {
+        if (tokenFromSecureStore,emailFromSecureStore,localIdFromSecureStore,refreshTokenFromSecureStore ) {
             console.log("TokenID was found. Recovering userData");
-            dispatch(restoreUser( tokenFromSecureStore, emailFromSecureStore, displayNameFromSecureStore, localIdFromSecureStore, refreshTokenFromSecureStore));
+            dispatch(restoreUser(  tokenFromSecureStore, localIdFromSecureStore, emailFromSecureStore, displayNameFromSecureStore, refreshTokenFromSecureStore));
         } else {
             console.log("No user token found. Log back in");
         }

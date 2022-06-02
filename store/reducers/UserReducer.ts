@@ -78,7 +78,7 @@ const userReducer = (state = initialState, action: Action) => {
     case DELETE_USER:
       return { 
         ...state, 
-        idToken: undefined 
+        idToken: action.payload.idToken,
       };
 
     case SETUP_PROFILE:
@@ -94,8 +94,7 @@ const userReducer = (state = initialState, action: Action) => {
     case EDIT_NAME:
       return { 
         ...state, 
-        idToken: undefined,
-        localId: undefined,
+        idToken: action.payload.idToken,
         displayName: action.payload.displayName, };
 
     default:

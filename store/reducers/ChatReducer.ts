@@ -15,9 +15,9 @@ const initialState = {
 
 export interface Action {
   isOnline: boolean | false;
-  chatroomName: string | string;
-  type: string | undefined;
-  payload: string | undefined;
+  chatroomName: string | undefined;
+  type: any | undefined;
+  payload: any | undefined;
   id: string | undefined
 }
 const chatReducer = (state = initialState, action: Action) => {
