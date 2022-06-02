@@ -19,7 +19,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { edit_name } from "../store/actions/UserActions";
 const defaultImage = require("../assets/defaultImage.png");
-import firestore from '@react-native-firebase/firestore';
+
 
 
 const EditProfileScreen = ({ navigation }: { navigation: any }) => {
@@ -46,11 +46,12 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.5,
     });
+
   };
 
   return (
@@ -103,8 +104,3 @@ const EditProfileScreen = ({ navigation }: { navigation: any }) => {
 };
 
 export default EditProfileScreen;
-
-function getState() {
-  throw new Error("Function not implemented.");
-}
-
